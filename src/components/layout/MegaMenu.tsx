@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
 import { menuData } from "@/data/categories";
 import type { MenuCategory } from "@/types";
 
@@ -36,10 +36,12 @@ export function MegaMenu({
         {/* Left sidebar */}
         <div className="w-[280px] shrink-0 border-r border-brand-border bg-surface-light py-3">
           {menuData.map((cat, i) => (
-            <div
+            <Link
               key={i}
+              href={`/catalog/${cat.slug}`}
+              onClick={onClose}
               onMouseEnter={() => setActiveIdx(i)}
-              className={`flex cursor-pointer items-center gap-3 border-r-[3px] px-6 py-[11px] transition-all duration-150 ${
+              className={`flex items-center gap-3 border-r-[3px] px-6 py-[11px] transition-all duration-150 ${
                 i === activeIdx
                   ? "border-r-terracotta bg-white font-semibold text-foreground"
                   : "border-r-transparent font-normal text-brand-muted"
@@ -48,7 +50,7 @@ export function MegaMenu({
               <span className="w-7 text-center text-xl">{cat.icon}</span>
               <span className="text-sm">{cat.name}</span>
               <span className="ml-auto text-xs text-brand-muted">›</span>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -57,18 +59,23 @@ export function MegaMenu({
           <div className="font-heading mb-1 text-xl font-bold text-foreground">
             {active.icon} {active.name}
           </div>
-          <div className="mb-5 cursor-pointer text-[13px] font-medium text-terracotta">
+          <Link
+            href={`/catalog/${active.slug}`}
+            onClick={onClose}
+            className="mb-5 block text-[13px] font-medium text-terracotta hover:underline"
+          >
             Смотреть все →
-          </div>
+          </Link>
           <div className="grid grid-cols-3 gap-x-8">
             {active.subs.map((sub, j) => (
-              <a
+              <Link
                 key={j}
-                href="#"
+                href={`/catalog/${active.slug}`}
+                onClick={onClose}
                 className="block border-b border-brand-border py-2.5 text-sm text-foreground transition-colors duration-150 hover:text-terracotta"
               >
                 {sub}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -82,9 +89,13 @@ export function MegaMenu({
                 Скидки до 40% до конца апреля
               </div>
             </div>
-            <button className="cursor-pointer rounded-[10px] border-none bg-terracotta px-[18px] py-2 text-[13px] font-semibold text-white">
+            <Link
+              href={`/catalog/${active.slug}`}
+              onClick={onClose}
+              className="rounded-[10px] border-none bg-terracotta px-[18px] py-2 text-[13px] font-semibold text-white"
+            >
               Смотреть
-            </button>
+            </Link>
           </div>
         </div>
       </div>

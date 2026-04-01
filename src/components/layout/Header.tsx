@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Search,
   Heart,
@@ -20,15 +21,25 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuIdx, setMenuIdx] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
   const { totalCount: cartCount } = useCart();
   const { count: favCount } = useFavorites();
   const { count: compareCount } = useCompare();
+  const router = useRouter();
+  const searchRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <header
@@ -42,13 +53,19 @@ export function Header() {
         {/* Topline */}
         <div className="hidden items-center justify-between border-b border-brand-border py-1.5 text-[13px] text-brand-muted md:flex">
           <div className="flex gap-5">
-            <span className="flex cursor-pointer items-center gap-1">
+            <span className="flex items-center gap-1 text-brand-muted">
               <MapPin size={14} />
               Москва
             </span>
-            <span className="cursor-pointer">Доставка</span>
-            <span className="cursor-pointer">Магазины</span>
-            <span className="cursor-pointer">Для бизнеса</span>
+            <Link href="/delivery" className="text-brand-muted hover:text-terracotta transition-colors">
+              Доставка
+            </Link>
+            <Link href="/contacts" className="text-brand-muted hover:text-terracotta transition-colors">
+              Магазины
+            </Link>
+            <Link href="/payment" className="text-brand-muted hover:text-terracotta transition-colors">
+              Для бизнеса
+            </Link>
           </div>
           <div className="flex items-center gap-4">
             <span>Ежедневно 9:00–22:00</span>
@@ -62,9 +79,9 @@ export function Header() {
         {/* Main row */}
         <div className="relative flex items-center gap-4 py-3">
           {/* Logo */}
-          <div className="font-heading shrink-0 text-[26px] font-extrabold tracking-tight text-foreground">
+          <Link href="/" className="font-heading shrink-0 text-[26px] font-extrabold tracking-tight text-foreground">
             МЕБЕЛЬ<span className="text-terracotta">.маркет</span>
-          </div>
+          </Link>
 
           {/* Catalog button */}
           <button
@@ -100,16 +117,25 @@ export function Header() {
           </button>
 
           {/* Search */}
-          <div className="flex flex-1 items-center gap-2 rounded-xl bg-surface px-4 py-0">
+          <form
+            ref={searchRef}
+            onSubmit={handleSearch}
+            className="flex flex-1 items-center gap-2 rounded-xl bg-surface px-4 py-0"
+          >
             <Search size={18} className="text-brand-muted" />
             <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Найти мебель, декор и товары для дома"
               className="flex-1 border-none bg-transparent py-[11px] text-sm text-foreground outline-none placeholder:text-brand-muted"
             />
-            <button className="cursor-pointer rounded-[10px] border-none bg-terracotta px-[18px] py-2 text-[13px] font-semibold text-white">
+            <button
+              type="submit"
+              className="cursor-pointer rounded-[10px] border-none bg-terracotta px-[18px] py-2 text-[13px] font-semibold text-white"
+            >
               Найти
             </button>
-          </div>
+          </form>
 
           {/* Action icons */}
           <div className="hidden items-center gap-1 lg:flex">

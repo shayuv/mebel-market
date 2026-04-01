@@ -1,9 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { Heart, ArrowLeftRight, ShoppingCart } from "lucide-react";
 import { Stars } from "@/components/shared/Stars";
 import { Badge } from "@/components/shared/Badge";
 import { formatPrice } from "@/lib/formatters";
+import { useCart } from "@/lib/context/CartContext";
+import { useFavorites } from "@/lib/context/FavoritesContext";
+import { useCompare } from "@/lib/context/CompareContext";
 import type { Product } from "@/types";
 import { useState } from "react";
 
@@ -24,12 +28,15 @@ function getBadgeVariant(
 export function ProductCard({ product }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
   const badgeVariant = getBadgeVariant(product.badge);
+  const { addItem } = useCart();
+  const { toggle: toggleFav, isFavorite } = useFavorites();
+  const { toggle: toggleCompare, isInCompare } = useCompare();
 
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group min-w-[228px] max-w-[260px] shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white transition-all duration-300"
+      className="group min-w-[228px] max-w-[260px] shrink-0 overflow-hidden rounded-2xl bg-white transition-all duration-300"
       style={{
         transform: hovered ? "translateY(-4px)" : "none",
         boxShadow: hovered
@@ -38,7 +45,10 @@ export function ProductCard({ product }: ProductCardProps) {
       }}
     >
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-surface-light">
+      <Link
+        href={`/catalog/${product.catSlug}/${product.slug}`}
+        className="relative block aspect-square overflow-hidden bg-surface-light"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={product.img}
@@ -54,24 +64,48 @@ export function ProductCard({ product }: ProductCardProps) {
         <div
           className="absolute right-2.5 top-2.5 flex flex-col gap-1.5 transition-opacity duration-300"
           style={{ opacity: hovered ? 1 : 0 }}
+          onClick={(e) => e.preventDefault()}
         >
-          <button className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-white/90 backdrop-blur-sm text-foreground">
-            <Heart size={16} />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              toggleFav(product);
+            }}
+            className={`flex h-[34px] w-[34px] items-center justify-center rounded-full backdrop-blur-sm ${
+              isFavorite(product.id)
+                ? "bg-terracotta text-white"
+                : "bg-white/90 text-foreground"
+            }`}
+          >
+            <Heart size={16} fill={isFavorite(product.id) ? "currentColor" : "none"} />
           </button>
-          <button className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-white/90 backdrop-blur-sm text-foreground">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              toggleCompare(product);
+            }}
+            className={`flex h-[34px] w-[34px] items-center justify-center rounded-full backdrop-blur-sm ${
+              isInCompare(product.id)
+                ? "bg-terracotta text-white"
+                : "bg-white/90 text-foreground"
+            }`}
+          >
             <ArrowLeftRight size={16} />
           </button>
         </div>
-      </div>
+      </Link>
 
       {/* Info */}
       <div className="px-3.5 pb-3.5 pt-3">
         <div className="mb-0.5 text-[11px] uppercase tracking-wide text-brand-muted">
           {product.cat}
         </div>
-        <div className="mb-1.5 line-clamp-2 h-9 text-[13px] font-medium leading-snug text-foreground">
+        <Link
+          href={`/catalog/${product.catSlug}/${product.slug}`}
+          className="mb-1.5 line-clamp-2 block h-9 text-[13px] font-medium leading-snug text-foreground hover:text-terracotta"
+        >
           {product.name}
-        </div>
+        </Link>
         <Stars rating={product.rating} reviews={product.reviews} />
         <div className="mt-2 flex items-baseline gap-1.5">
           <span className="text-lg font-bold text-foreground">
@@ -84,7 +118,8 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
         <button
-          className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-[13px] font-semibold transition-colors duration-300"
+          onClick={() => addItem(product)}
+          className="mt-2.5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl py-2.5 text-[13px] font-semibold transition-colors duration-300"
           style={{
             background: hovered ? "#C4704B" : "#F0EDE8",
             color: hovered ? "#FFFFFF" : "#2D2926",

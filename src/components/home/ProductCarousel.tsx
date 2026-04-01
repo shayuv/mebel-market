@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/product/ProductCard";
 
@@ -38,12 +39,12 @@ export function ProductCarousel() {
             </button>
           ))}
         </div>
-        <a
-          href="#"
+        <Link
+          href="/catalog"
           className="shrink-0 text-sm font-medium text-terracotta hover:underline"
         >
           Смотреть все →
-        </a>
+        </Link>
       </div>
 
       {/* Horizontal scroll */}

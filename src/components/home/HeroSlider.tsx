@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { heroSlides, sidePromos } from "@/data/categories";
 
@@ -58,9 +59,12 @@ export function HeroSlider() {
               <p className="mt-3.5 text-base leading-relaxed text-white/80 max-sm:text-sm">
                 {slide.sub}
               </p>
-              <button className="mt-5 cursor-pointer rounded-xl border-none bg-terracotta px-8 py-3.5 text-[15px] font-semibold text-white shadow-[0_4px_24px_rgba(196,112,75,0.4)]">
+              <Link
+                href="/catalog"
+                className="mt-5 inline-block cursor-pointer rounded-xl border-none bg-terracotta px-8 py-3.5 text-[15px] font-semibold text-white shadow-[0_4px_24px_rgba(196,112,75,0.4)]"
+              >
                 {slide.cta}
-              </button>
+              </Link>
             </div>
           </div>
         ))}
@@ -133,13 +137,15 @@ function SidePromoCard({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div
+    <Link
+      href="/catalog"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative cursor-pointer overflow-hidden rounded-[20px] p-[22px] transition-transform duration-300 max-xl:flex-1"
+      className="relative overflow-hidden rounded-[20px] p-[22px] transition-transform duration-300 max-xl:flex-1"
       style={{
         background: promo.color,
         transform: hovered ? "scale(0.98)" : "scale(1)",
+        display: "block",
       }}
     >
       {/* Background image */}
@@ -163,7 +169,7 @@ function SidePromoCard({
             {promo.sub}
           </div>
         </div>
-        <button
+        <span
           className="mt-3 w-fit rounded-[10px] border-[1.5px] px-[18px] py-2 text-[13px] font-semibold transition-all duration-200"
           style={{
             borderColor: promo.accent,
@@ -172,8 +178,8 @@ function SidePromoCard({
           }}
         >
           Подробнее
-        </button>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }

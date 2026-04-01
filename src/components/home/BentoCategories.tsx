@@ -1,11 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { bentoCategories } from "@/data/categories";
 import type { Category } from "@/types";
 
 const gridAreas = `"a b c c e" "d f g g e"`;
 const areaKeys = ["a", "b", "c", "e", "d", "f", "g"];
+
+// Map bento category names to catalog slugs
+const categorySlugMap: Record<string, string> = {
+  "Шкафы": "shkafy-i-stellazhi",
+  "Комоды": "shkafy-i-stellazhi",
+  "Кровати": "krovati-i-matrace",
+  "Готовые кухни": "kuhni",
+  "Обеденные столы": "stoly-i-stulya",
+  "Диваны": "divany-i-kresla",
+  "Кухонные стулья": "stoly-i-stulya",
+};
 
 export function BentoCategories() {
   return (
@@ -14,12 +26,12 @@ export function BentoCategories() {
         <h2 className="font-heading text-3xl font-bold text-foreground max-sm:text-2xl">
           Каталог
         </h2>
-        <a
-          href="#"
+        <Link
+          href="/catalog"
           className="text-sm font-medium text-terracotta hover:underline"
         >
           Все категории →
-        </a>
+        </Link>
       </div>
       <div
         className="hidden gap-3 lg:grid"
@@ -37,9 +49,10 @@ export function BentoCategories() {
       {/* Mobile: horizontal scroll */}
       <div className="flex gap-3 overflow-x-auto pb-2 lg:hidden" style={{ scrollbarWidth: "none" }}>
         {bentoCategories.map((cat, i) => (
-          <div
+          <Link
             key={i}
-            className="relative h-[180px] w-[160px] shrink-0 cursor-pointer overflow-hidden rounded-2xl"
+            href={`/catalog/${categorySlugMap[cat.name] || "divany-i-kresla"}`}
+            className="relative h-[180px] w-[160px] shrink-0 overflow-hidden rounded-2xl"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -65,9 +78,9 @@ export function BentoCategories() {
                 {cat.name}
               </div>
               {cat.cta && (
-                <button className="mt-2 rounded-full border border-brand-border bg-white/85 px-3.5 py-1.5 text-xs font-medium text-foreground backdrop-blur-[6px]">
+                <span className="mt-2 inline-block rounded-full border border-brand-border bg-white/85 px-3.5 py-1.5 text-xs font-medium text-foreground backdrop-blur-[6px]">
                   {cat.cta}
-                </button>
+                </span>
               )}
             </div>
             {cat.badge && (
@@ -75,7 +88,7 @@ export function BentoCategories() {
                 {cat.badge}
               </span>
             )}
-          </div>
+          </Link>
         ))}
       </div>
     </div>
@@ -90,10 +103,12 @@ function BentoCard({
   areaKey: string;
 }) {
   const [hovered, setHovered] = useState(false);
+  const slug = categorySlugMap[cat.name] || "divany-i-kresla";
 
   return (
-    <div
-      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-light"
+    <Link
+      href={`/catalog/${slug}`}
+      className="group relative overflow-hidden rounded-2xl bg-surface-light"
       style={{ gridArea: areaKey }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -126,9 +141,9 @@ function BentoCard({
           </div>
         )}
         {cat.cta && (
-          <button className="mt-2 rounded-full border border-brand-border bg-white/85 px-3.5 py-1.5 text-xs font-medium text-foreground backdrop-blur-[6px]">
+          <span className="mt-2 inline-block rounded-full border border-brand-border bg-white/85 px-3.5 py-1.5 text-xs font-medium text-foreground backdrop-blur-[6px]">
             {cat.cta}
-          </button>
+          </span>
         )}
       </div>
       {cat.badge && (
@@ -136,6 +151,6 @@ function BentoCard({
           {cat.badge}
         </span>
       )}
-    </div>
+    </Link>
   );
 }

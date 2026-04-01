@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { shoppablePins } from "@/data/categories";
 
 export function ShoppableInterior() {
@@ -17,12 +18,12 @@ export function ShoppableInterior() {
             Нажмите на точку — узнаете о товаре
           </p>
         </div>
-        <a
-          href="#"
+        <Link
+          href="/catalog"
           className="shrink-0 text-sm font-medium text-terracotta hover:underline"
         >
           Все интерьеры →
-        </a>
+        </Link>
       </div>
 
       <div className="relative h-[420px] overflow-hidden rounded-[20px] max-sm:h-[280px]">
@@ -59,9 +60,12 @@ export function ShoppableInterior() {
                 <div className="mt-1 text-base font-bold text-terracotta">
                   {pin.price}
                 </div>
-                <div className="mt-1.5 text-xs font-medium text-terracotta">
+                <Link
+                  href="/catalog"
+                  className="mt-1.5 block text-xs font-medium text-terracotta hover:underline"
+                >
                   Подробнее →
-                </div>
+                </Link>
               </div>
             )}
           </div>
