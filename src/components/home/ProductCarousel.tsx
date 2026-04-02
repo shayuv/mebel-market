@@ -16,13 +16,13 @@ export function ProductCarousel() {
 
   return (
     <div className="mt-13">
-      <div className="mb-5 flex items-center justify-between gap-4">
-        <div className="flex rounded-[14px] bg-surface p-[3px]">
+      <div className="mb-5 flex items-center justify-between gap-3">
+        <div className="flex overflow-x-auto rounded-[14px] bg-surface p-[3px]" style={{ scrollbarWidth: "none" }}>
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className="rounded-[11px] border-none px-5 py-2.5 text-sm font-semibold transition-all duration-250"
+              className="shrink-0 rounded-[11px] border-none px-3.5 py-2 text-[13px] font-semibold transition-all duration-250 sm:px-5 sm:py-2.5 sm:text-sm"
               style={{
                 background:
                   activeTab === tab.key ? "#FFFFFF" : "transparent",
@@ -53,7 +53,9 @@ export function ProductCarousel() {
         style={{ scrollbarWidth: "none" }}
       >
         {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
+          <div key={p.id} className="w-[200px] shrink-0 sm:w-[240px]">
+            <ProductCard product={p} />
+          </div>
         ))}
       </div>
     </div>

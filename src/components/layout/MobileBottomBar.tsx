@@ -20,7 +20,9 @@ export function MobileBottomBar() {
       <div className="flex items-center justify-around py-2">
         {navItems.map((item) => {
           const isActive =
-            item.href !== "#" && pathname.startsWith(item.href);
+            item.href === "/"
+              ? pathname === "/"
+              : item.href !== "#" && pathname.startsWith(item.href);
           return (
             <Link
               key={item.label}

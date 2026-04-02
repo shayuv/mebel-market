@@ -164,41 +164,45 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Quantity + CTA */}
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <div className="flex items-center rounded-xl border border-brand-border">
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="flex h-11 w-11 items-center justify-center text-foreground hover:text-terracotta"
-              >
-                <Minus size={16} />
-              </button>
-              <span className="w-10 text-center text-sm font-semibold">{quantity}</span>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                className="flex h-11 w-11 items-center justify-center text-foreground hover:text-terracotta"
-              >
-                <Plus size={16} />
+          <div className="mt-6 space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center rounded-xl border border-brand-border">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="flex h-11 w-11 items-center justify-center text-foreground hover:text-terracotta"
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="w-10 text-center text-sm font-semibold">{quantity}</span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="flex h-11 w-11 items-center justify-center text-foreground hover:text-terracotta"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+              <button className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-terracotta px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(196,112,75,0.3)] transition-colors hover:bg-terracotta/90 sm:flex-none sm:px-7">
+                <ShoppingCart size={16} />
+                В корзину
               </button>
             </div>
-            <button className="flex items-center gap-2 rounded-xl bg-terracotta px-7 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(196,112,75,0.3)] transition-colors hover:bg-terracotta/90">
-              <ShoppingCart size={16} />
-              В корзину
-            </button>
-            <button className="rounded-xl border border-brand-border bg-white px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-terracotta hover:text-terracotta">
-              Купить в 1 клик
-            </button>
-            <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-brand-border text-foreground hover:border-terracotta hover:text-terracotta">
-              <Heart size={18} />
-            </button>
-            <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-brand-border text-foreground hover:border-terracotta hover:text-terracotta">
-              <Share2 size={18} />
-            </button>
+            <div className="flex items-center gap-3">
+              <button className="flex-1 rounded-xl border border-brand-border bg-white px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-terracotta hover:text-terracotta sm:flex-none">
+                Купить в 1 клик
+              </button>
+              <button className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-border text-foreground hover:border-terracotta hover:text-terracotta">
+                <Heart size={18} />
+              </button>
+              <button className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-border text-foreground hover:border-terracotta hover:text-terracotta">
+                <Share2 size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Quick specs */}
           {product.specs && (
             <div className="mt-6 rounded-xl bg-surface-light p-4">
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+              <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
                 {Object.entries(product.specs)
                   .slice(0, 5)
                   .map(([key, value]) => (

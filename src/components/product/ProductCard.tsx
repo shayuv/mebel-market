@@ -36,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group min-w-[228px] max-w-[260px] shrink-0 overflow-hidden rounded-2xl bg-white transition-all duration-300"
+      className="group w-full min-w-0 shrink-0 overflow-hidden rounded-2xl bg-white transition-all duration-300 max-md:max-w-none"
       style={{
         transform: hovered ? "translateY(-4px)" : "none",
         boxShadow: hovered

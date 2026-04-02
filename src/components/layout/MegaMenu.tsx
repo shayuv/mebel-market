@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { ChevronRight, X } from "lucide-react";
 import { menuData } from "@/data/categories";
 import type { MenuCategory } from "@/types";
 
@@ -17,9 +19,12 @@ export function MegaMenu({
   activeIdx,
   setActiveIdx,
 }: MegaMenuProps) {
+  const [mobileSubIdx, setMobileSubIdx] = useState<number | null>(null);
+
   if (!open) return null;
 
   const active: MenuCategory = menuData[activeIdx] ?? menuData[0];
+  const mobileActive = mobileSubIdx !== null ? menuData[mobileSubIdx] : null;
 
   return (
     <>
@@ -29,8 +34,8 @@ export function MegaMenu({
         onClick={onClose}
       />
 
-      {/* Menu panel */}
-      <div className="absolute left-0 right-0 top-full z-[91] flex overflow-hidden rounded-b-[20px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] animate-[menuSlide_0.25s_ease]">
+      {/* Desktop menu panel */}
+      <div className="absolute left-0 right-0 top-full z-[91] hidden overflow-hidden rounded-b-[20px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] animate-[menuSlide_0.25s_ease] md:flex">
         <style>{`@keyframes menuSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
         {/* Left sidebar */}
@@ -98,6 +103,71 @@ export function MegaMenu({
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* Mobile fullscreen menu */}
+      <div className="fixed inset-0 z-[91] overflow-y-auto bg-white md:hidden">
+        {/* Mobile header */}
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-brand-border bg-white px-4 py-3">
+          <h2 className="text-lg font-bold text-foreground">
+            {mobileActive ? (
+              <button
+                onClick={() => setMobileSubIdx(null)}
+                className="flex items-center gap-2 text-foreground"
+              >
+                <ChevronRight size={18} className="rotate-180" />
+                {mobileActive.name}
+              </button>
+            ) : (
+              "Каталог"
+            )}
+          </h2>
+          <button
+            onClick={() => { onClose(); setMobileSubIdx(null); }}
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-foreground"
+          >
+            <X size={22} />
+          </button>
+        </div>
+
+        {/* Mobile categories list */}
+        {!mobileActive ? (
+          <div className="py-2">
+            {menuData.map((cat, i) => (
+              <button
+                key={i}
+                onClick={() => setMobileSubIdx(i)}
+                className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors active:bg-surface"
+              >
+                <span className="w-8 text-center text-xl">{cat.icon}</span>
+                <span className="flex-1 text-[15px] font-medium text-foreground">{cat.name}</span>
+                <ChevronRight size={18} className="text-brand-muted" />
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="py-2">
+            {/* "View all" link */}
+            <Link
+              href={`/catalog/${mobileActive.slug}`}
+              onClick={() => { onClose(); setMobileSubIdx(null); }}
+              className="flex items-center gap-3 border-b border-brand-border px-4 py-3.5 text-[15px] font-semibold text-terracotta"
+            >
+              Смотреть все {mobileActive.name.toLowerCase()}
+            </Link>
+            {/* Subcategories */}
+            {mobileActive.subs.map((sub, j) => (
+              <Link
+                key={j}
+                href={`/catalog/${mobileActive.slug}`}
+                onClick={() => { onClose(); setMobileSubIdx(null); }}
+                className="block border-b border-brand-border px-4 py-3.5 text-[15px] text-foreground active:bg-surface"
+              >
+                {sub}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
