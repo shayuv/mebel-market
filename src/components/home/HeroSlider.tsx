@@ -31,7 +31,7 @@ export function HeroSlider() {
   return (
     <div className="flex gap-3.5 mt-5 max-xl:flex-col max-xl:h-auto">
       <div
-        className="relative flex-1 overflow-hidden rounded-[20px] h-[400px] max-xl:h-[300px] max-sm:h-[300px]"
+        className="relative shrink-0 overflow-hidden rounded-[20px] h-[400px] max-xl:h-[300px] max-sm:h-[300px]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
