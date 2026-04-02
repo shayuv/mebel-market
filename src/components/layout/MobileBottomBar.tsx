@@ -9,7 +9,8 @@ const navItems = [
   { icon: SquaresFour, label: "Каталог", href: "/catalog" },
   { icon: ShoppingBag, label: "Корзина", href: "/cart" },
   { icon: Heart, label: "Избранное", href: "/favorites" },
-  { icon: User, label: "Профиль", href: "#" },
+  // B12: replaced "#" with "/profile"
+  { icon: User, label: "Профиль", href: "/profile" },
 ];
 
 export function MobileBottomBar() {
@@ -22,7 +23,7 @@ export function MobileBottomBar() {
           const isActive =
             item.href === "/"
               ? pathname === "/"
-              : item.href !== "#" && pathname.startsWith(item.href);
+              : pathname.startsWith(item.href);
           return (
             <Link
               key={item.label}

@@ -78,18 +78,22 @@ function MobileCard({ cat }: { cat: Category }) {
         alt=""
         className="h-full w-full object-cover"
       />
+      {cat.style !== "lifestyle" && (
+        <div className="absolute inset-0 bg-gradient-to-b from-white/55 to-white/25" />
+      )}
+      {/* B04b: stronger text backdrop for lifestyle cards */}
       <div
-        className={`absolute inset-0 ${
+        className="absolute bottom-0 left-0 right-0 p-3"
+        style={
           cat.style === "lifestyle"
-            ? "bg-gradient-to-b from-black/0 via-black/0 to-black/50"
-            : "bg-gradient-to-b from-white/55 to-white/25"
-        }`}
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-3">
+            ? { background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)" }
+            : undefined
+        }
+      >
         <div
           className={`font-bold ${
             cat.style === "lifestyle"
-              ? "text-white"
+              ? "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
               : "text-foreground"
           } text-sm`}
         >
@@ -135,17 +139,21 @@ function BentoCard({
         className="h-full w-full object-cover transition-transform duration-500"
         style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }}
       />
+      {cat.style !== "lifestyle" && (
+        <div className="absolute inset-0 bg-gradient-to-b from-white/55 to-white/25" />
+      )}
+      {/* B04b: stronger text backdrop for lifestyle cards */}
       <div
-        className={`absolute inset-0 ${
+        className="absolute bottom-0 left-0 right-0 p-[18px]"
+        style={
           cat.style === "lifestyle"
-            ? "bg-gradient-to-b from-black/0 via-black/0 to-black/50"
-            : "bg-gradient-to-b from-white/55 to-white/25"
-        }`}
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-[18px]">
+            ? { background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)" }
+            : undefined
+        }
+      >
         <div
           className={`font-bold ${
-            cat.style === "lifestyle" ? "text-white" : "text-foreground"
+            cat.style === "lifestyle" ? "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]" : "text-foreground"
           } ${cat.size ? "text-xl" : "text-base"}`}
         >
           {cat.name}

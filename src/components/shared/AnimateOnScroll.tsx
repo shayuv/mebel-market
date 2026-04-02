@@ -20,7 +20,7 @@ export function AnimateOnScroll({ children, delay = 0, className = "" }: Animate
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.01, rootMargin: "200px 0px -40px 0px" }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();

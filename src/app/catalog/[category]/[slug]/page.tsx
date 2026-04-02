@@ -61,20 +61,29 @@ export default function ProductDetailPage() {
     );
   }
 
+  // B09: visually different gallery images using different Unsplash photos
   const galleryImages = [
     product.img,
-    product.img.replace("w=500&h=500", "w=800&h=600"),
-    product.img.replace("w=500&h=500", "w=600&h=800"),
-    product.img.replace("w=500&h=500", "w=1000&h=1000"),
+    "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=800&h=800&fit=crop",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800&h=800&fit=crop",
+    "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=800&fit=crop",
   ];
 
   const economy = product.oldPrice ? product.oldPrice - product.price : 0;
   const monthlyPrice = Math.ceil(product.price / 12);
   const badgeVariant = getBadgeVariant(product.badge);
 
-  const relatedProducts = products
+  // B20: expand related products — fill from other categories if not enough in same category
+  let relatedProducts = products
     .filter((p) => p.catSlug === product.catSlug && p.id !== product.id)
     .slice(0, 4);
+
+  if (relatedProducts.length < 4) {
+    const extra = products
+      .filter((p) => p.id !== product.id && !relatedProducts.some((r) => r.id === p.id))
+      .slice(0, 4 - relatedProducts.length);
+    relatedProducts = [...relatedProducts, ...extra];
+  }
 
   return (
     <div className="mx-auto max-w-[1280px] px-6 pb-20 md:pb-8">

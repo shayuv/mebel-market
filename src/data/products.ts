@@ -369,6 +369,66 @@ export const products: Product[] = [
       Вес: "5.4 кг",
     },
   },
+  // B18: mock products for bytovaya-tehnika category
+  {
+    id: 13,
+    name: "Холодильник Нордик двухкамерный",
+    slug: "holodilnik-nordic",
+    price: 42990,
+    oldPrice: 54990,
+    rating: 4.5,
+    reviews: 34,
+    img: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=500&h=500&fit=crop",
+    badge: "-22%",
+    cat: "Бытовая техника",
+    catSlug: "bytovaya-tehnika",
+    inStock: true,
+    brand: "HomeStyle",
+    material: "Нержавеющая сталь",
+    colors: [
+      { name: "Серебристый", hex: "#C0C0C0" },
+      { name: "Белый", hex: "#F5F5F5" },
+    ],
+    description:
+      "Двухкамерный холодильник с системой No Frost. Энергоэффективность класса A++. Нижняя морозильная камера, электронное управление.",
+    specs: {
+      "Общий объём": "340 л",
+      "Холодильная камера": "230 л",
+      "Морозильная камера": "110 л",
+      "Система разморозки": "No Frost",
+      "Класс энергопотребления": "A++",
+      Габариты: "60x65x185 см",
+    },
+  },
+  {
+    id: 14,
+    name: "Стиральная машина Аква 8 кг",
+    slug: "stiralnaya-mashina-aqua",
+    price: 28990,
+    oldPrice: 33990,
+    rating: 4.4,
+    reviews: 67,
+    img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500&h=500&fit=crop",
+    badge: "-15%",
+    cat: "Бытовая техника",
+    catSlug: "bytovaya-tehnika",
+    inStock: true,
+    brand: "HomeStyle",
+    material: "Металл / пластик",
+    colors: [
+      { name: "Белый", hex: "#F5F5F5" },
+    ],
+    description:
+      "Стиральная машина с фронтальной загрузкой, 8 кг. 16 программ стирки, быстрая стирка за 15 минут. Инверторный двигатель.",
+    specs: {
+      "Макс. загрузка": "8 кг",
+      "Макс. отжим": "1200 об/мин",
+      "Количество программ": "16",
+      "Быстрая стирка": "15 мин",
+      "Класс стирки": "A",
+      Габариты: "60x55x85 см",
+    },
+  },
 ];
 
 export const reviews: Review[] = [

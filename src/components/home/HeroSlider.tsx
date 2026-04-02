@@ -31,65 +31,84 @@ export function HeroSlider() {
   return (
     <div className="flex gap-3.5 mt-5 max-xl:flex-col max-xl:h-auto">
       <div
-        className="relative flex-1 overflow-hidden rounded-[20px] h-[400px] max-xl:h-[300px] max-sm:h-[240px]"
+        className="relative flex-1 overflow-hidden rounded-[20px] h-[400px] max-xl:h-[300px] max-sm:h-[300px]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {heroSlides.map((slide, i) => (
-          <div
-            key={i}
-            className="absolute inset-0 transition-all duration-700"
-            style={{
-              opacity: i === cur ? 1 : 0,
-              transform: i === cur ? "scale(1)" : "scale(1.03)",
-              pointerEvents: i === cur ? "auto" : "none",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={slide.img}
-              alt=""
-              className="h-full w-full object-cover"
-              style={{
-                transform: i === cur ? `translateY(${scrollY * 0.12}px) scale(1.1)` : undefined,
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-[rgba(45,41,38,0.78)] via-[rgba(45,41,38,0.3)] to-transparent" />
+        {heroSlides.map((slide, i) => {
+          const isActive = i === cur;
+          return (
+            <div key={i} className="absolute inset-0">
+              {/* Background image layer */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={slide.img}
+                alt=""
+                className="h-full w-full object-cover"
+                style={{
+                  opacity: isActive ? 1 : 0,
+                  transform: isActive ? `translateY(${scrollY * 0.12}px) scale(1.1)` : "scale(1.03)",
+                  transition: "opacity 0.7s ease, transform 0.7s ease",
+                  pointerEvents: isActive ? "auto" : "none",
+                }}
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-br from-[rgba(45,41,38,0.78)] via-[rgba(45,41,38,0.3)] to-transparent"
+                style={{
+                  opacity: isActive ? 1 : 0,
+                  transition: "opacity 0.7s ease",
+                }}
+              />
 
-            <div className="absolute bottom-12 left-12 max-w-[420px] max-sm:left-6 max-sm:bottom-6">
-              <div className="mb-3.5 inline-block rounded-lg bg-white/15 px-3.5 py-[5px] text-[13px] font-medium text-white/90 backdrop-blur-[8px]">
-                {slide.price}
-              </div>
-              <h1 className="font-heading text-4xl font-extrabold leading-tight text-white whitespace-pre-line max-sm:text-2xl">
-                {slide.title}
-              </h1>
-              <p className="mt-3.5 text-base leading-relaxed text-white/80 max-sm:text-sm">
-                {slide.sub}
-              </p>
-              <Link
-                href="/catalog"
-                className="mt-5 inline-block cursor-pointer rounded-xl border-none bg-terracotta px-8 py-3.5 text-[15px] font-semibold text-white shadow-[0_4px_24px_rgba(196,112,75,0.4)]"
+              {/* Text layer — delayed entrance (B04: cascading effect) */}
+              <div
+                className="absolute bottom-12 left-12 max-w-[420px] max-sm:left-4 max-sm:bottom-4"
+                style={{
+                  opacity: isActive ? 1 : 0,
+                  transform: isActive ? "translateY(0)" : "translateY(12px)",
+                  transition: isActive
+                    ? "opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s"
+                    : "opacity 0.25s ease, transform 0.25s ease",
+                  pointerEvents: isActive ? "auto" : "none",
+                }}
               >
-                {slide.cta}
-              </Link>
+                {/* B02: hide price badge on mobile */}
+                <div className="mb-3.5 inline-block rounded-lg bg-white/15 px-3.5 py-[5px] text-[13px] font-medium text-white/90 backdrop-blur-[8px] max-sm:hidden">
+                  {slide.price}
+                </div>
+                <h1 className="font-heading text-4xl font-extrabold leading-tight text-white whitespace-pre-line max-sm:text-2xl">
+                  {slide.title}
+                </h1>
+                <p className="mt-3.5 text-base leading-relaxed text-white/80 max-sm:text-sm">
+                  {slide.sub}
+                </p>
+                <Link
+                  href="/catalog"
+                  className="mt-5 inline-block cursor-pointer rounded-xl border-none bg-terracotta px-8 py-3.5 text-[15px] font-semibold text-white shadow-[0_4px_24px_rgba(196,112,75,0.4)]"
+                >
+                  {slide.cta}
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
+        {/* B02: hide nav arrows on mobile */}
         <button
           onClick={() => go(-1)}
-          className="absolute top-1/2 left-4 z-[5] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-none bg-white/85 shadow-[0_4px_16px_rgba(0,0,0,0.1)] backdrop-blur-[8px] max-sm:h-10 max-sm:w-10"
+          className="absolute top-1/2 left-4 z-[5] hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-none bg-white/85 shadow-[0_4px_16px_rgba(0,0,0,0.1)] backdrop-blur-[8px] max-sm:hidden sm:flex"
         >
           <CaretLeft size={20} weight="regular" className="text-foreground" />
         </button>
         <button
           onClick={() => go(1)}
-          className="absolute top-1/2 right-4 z-[5] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-none bg-white/85 shadow-[0_4px_16px_rgba(0,0,0,0.1)] backdrop-blur-[8px] max-sm:h-10 max-sm:w-10"
+          className="absolute top-1/2 right-4 z-[5] hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-none bg-white/85 shadow-[0_4px_16px_rgba(0,0,0,0.1)] backdrop-blur-[8px] max-sm:hidden sm:flex"
         >
           <CaretRight size={20} weight="regular" className="text-foreground" />
         </button>
 
-        <div className="absolute bottom-5 left-12 z-[5] flex items-center gap-2.5 max-sm:left-6">
+        {/* B02: hide counter/dots on mobile */}
+        <div className="absolute bottom-5 left-12 z-[5] flex items-center gap-2.5 max-sm:hidden">
           <span className="text-[13px] font-medium tabular-nums text-white/70">
             {String(cur + 1).padStart(2, "0")} /{" "}
             {String(total).padStart(2, "0")}

@@ -94,12 +94,14 @@ export function ProductCard({ product }: ProductCardProps) {
       </Link>
 
       <div className="px-3.5 pb-3.5 pt-3">
-        <div className="mb-0.5 text-[11px] uppercase tracking-wide text-brand-muted">
+        {/* B04c: increased font size 11px → 12px (text-xs) */}
+        <div className="mb-0.5 text-xs uppercase tracking-wide text-brand-muted">
           {product.cat}
         </div>
+        {/* B04c: increased font size 13px → 14px (text-sm), h-9 → h-10 */}
         <Link
           href={`/catalog/${product.catSlug}/${product.slug}`}
-          className="mb-1.5 line-clamp-2 block h-9 text-[13px] font-medium leading-snug text-foreground hover:text-terracotta"
+          className="mb-1.5 line-clamp-2 block h-10 text-sm font-medium leading-snug text-foreground hover:text-terracotta"
         >
           {product.name}
         </Link>
@@ -109,14 +111,15 @@ export function ProductCard({ product }: ProductCardProps) {
             {formatPrice(product.price)}
           </span>
           {product.oldPrice && (
-            <span className="text-[13px] text-brand-muted line-through">
+            <span className="text-sm text-brand-muted line-through">
               {formatPrice(product.oldPrice)}
             </span>
           )}
         </div>
+        {/* B04c: increased font size 13px → 14px (text-sm) */}
         <button
           onClick={() => addItem(product)}
-          className="mt-2.5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl py-2.5 text-[13px] font-semibold transition-colors duration-300"
+          className="mt-2.5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors duration-300"
           style={{
             background: hovered ? "#C4704B" : "#F0EDE8",
             color: hovered ? "#FFFFFF" : "#2D2926",

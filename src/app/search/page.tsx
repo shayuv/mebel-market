@@ -1,16 +1,45 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import Link from "next/link";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { products, categoryPages } from "@/data/products";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ProductCard } from "@/components/product/ProductCard";
-import { formatPrice } from "@/lib/formatters";
 
 export default function SearchPage() {
-  const [query, setQuery] = useState("");
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-[1280px] px-6 pb-20 md:pb-8">
+          <div className="mx-auto max-w-2xl">
+            <div className="flex items-center gap-3 rounded-2xl border border-brand-border bg-white px-5 py-4 shadow-sm">
+              <MagnifyingGlass size={20} weight="regular" className="shrink-0 text-brand-muted" />
+              <div className="h-6 flex-1 animate-pulse rounded bg-surface-light" />
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <SearchContent />
+    </Suspense>
+  );
+}
+
+function SearchContent() {
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+  const [query, setQuery] = useState(initialQuery);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // B05: sync query when URL changes
+  useEffect(() => {
+    const q = searchParams.get("q") || "";
+    if (q && q !== query) setQuery(q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const results = useMemo(() => {
     if (!query.trim()) return { products: [], categories: [] };

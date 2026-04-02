@@ -5,13 +5,13 @@ export function Footer() {
     {
       title: "Каталог",
       items: [
-        { label: "Диваны", href: "/catalog/divany" },
-        { label: "Шкафы", href: "/catalog/shkafy" },
-        { label: "Кровати", href: "/catalog/krovati" },
+        { label: "Диваны", href: "/catalog/divany-i-kresla" },
+        { label: "Шкафы", href: "/catalog/shkafy-i-stellazhi" },
+        { label: "Кровати", href: "/catalog/krovati-i-matrace" },
         { label: "Кухни", href: "/catalog/kuhni" },
-        { label: "Столы", href: "/catalog/stoly" },
+        { label: "Столы", href: "/catalog/stoly-i-stulya" },
         { label: "Детская", href: "/catalog/detskaya" },
-        { label: "Декор", href: "/catalog/dekor" },
+        { label: "Декор", href: "/catalog/dekor-i-tekstil" },
       ],
     },
     {
