@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomBar } from "@/components/layout/MobileBottomBar";
+import { CartToastContainer } from "@/components/shared/CartToast";
 import { Providers } from "@/lib/context/Providers";
 
 const dmSans = DM_Sans({
@@ -40,6 +41,7 @@ export default function RootLayout({
           <div className="flex-1 animate-[pageIn_0.3s_ease]">{children}</div>
           <Footer />
           <MobileBottomBar />
+          <CartToastContainer />
         </Providers>
       </body>
     </html>

@@ -65,10 +65,11 @@ export function HeroSlider() {
                 className="absolute bottom-12 left-12 max-w-[420px] max-sm:left-4 max-sm:bottom-4"
                 style={{
                   opacity: isActive ? 1 : 0,
+                  visibility: isActive ? "visible" : "hidden",
                   transform: isActive ? "translateY(0)" : "translateY(12px)",
                   transition: isActive
-                    ? "opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s"
-                    : "opacity 0.25s ease, transform 0.25s ease",
+                    ? "opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s, visibility 0s 0s"
+                    : "opacity 0.2s ease, transform 0.2s ease, visibility 0s 0.25s",
                   pointerEvents: isActive ? "auto" : "none",
                 }}
               >

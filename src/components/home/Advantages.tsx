@@ -2,6 +2,7 @@
 
 import { Truck, ShieldCheck, CreditCard, Wrench } from "@phosphor-icons/react";
 import { advantages } from "@/data/categories";
+import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import type { Advantage } from "@/types";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -15,7 +16,9 @@ export function Advantages() {
   return (
     <div className="mt-13 grid gap-3.5 grid-cols-2 lg:grid-cols-4">
       {advantages.map((item, i) => (
-        <AdvantageCard key={i} item={item} />
+        <AnimateOnScroll key={i} delay={i * 0.1}>
+          <AdvantageCard item={item} />
+        </AnimateOnScroll>
       ))}
     </div>
   );

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { bentoCategories } from "@/data/categories";
+import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import type { Category } from "@/types";
 
 const gridAreas = `"a b c c e" "d f g g e"`;

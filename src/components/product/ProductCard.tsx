@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, ArrowsLeftRight, ShoppingCart } from "@phosphor-icons/react";
+import { Heart, ArrowsLeftRight, ShoppingCart, Check } from "@phosphor-icons/react";
 import { Stars } from "@/components/shared/Stars";
 import { Badge } from "@/components/shared/Badge";
 import { formatPrice } from "@/lib/formatters";
 import { useCart } from "@/lib/context/CartContext";
 import { useFavorites } from "@/lib/context/FavoritesContext";
 import { useCompare } from "@/lib/context/CompareContext";
+import { showCartToast } from "@/components/shared/CartToast";
 import type { Product } from "@/types";
 import { useState } from "react";
 
@@ -27,6 +28,7 @@ function getBadgeVariant(
 
 export function ProductCard({ product }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
+  const [added, setAdded] = useState(false);
   const badgeVariant = getBadgeVariant(product.badge);
   const { addItem } = useCart();
   const { toggle: toggleFav, isFavorite } = useFavorites();
@@ -118,15 +120,20 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
         {/* B04c: increased font size 13px → 14px (text-sm) */}
         <button
-          onClick={() => addItem(product)}
+          onClick={() => {
+            addItem(product);
+            showCartToast(product);
+            setAdded(true);
+            setTimeout(() => setAdded(false), 1500);
+          }}
           className="mt-2.5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors duration-300"
           style={{
-            background: hovered ? "#C4704B" : "#F0EDE8",
-            color: hovered ? "#FFFFFF" : "#2D2926",
+            background: added ? "#4A7C59" : hovered ? "#C4704B" : "#F0EDE8",
+            color: added ? "#FFFFFF" : hovered ? "#FFFFFF" : "#2D2926",
           }}
         >
-          <ShoppingCart size={14} weight="regular" />
-          В корзину
+          {added ? <Check size={14} weight="bold" /> : <ShoppingCart size={14} weight="regular" />}
+          {added ? "Добавлено" : "В корзину"}
         </button>
       </div>
     </div>
