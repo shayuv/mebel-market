@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useRef } from "react";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { products, categoryPages } from "@/data/products";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ProductCard } from "@/components/product/ProductCard";
@@ -30,7 +30,7 @@ export default function SearchPage() {
       {/* Search input */}
       <div className="mx-auto max-w-2xl">
         <div className="flex items-center gap-3 rounded-2xl border border-brand-border bg-white px-5 py-4 shadow-sm">
-          <Search size={20} className="shrink-0 text-brand-muted" />
+          <MagnifyingGlass size={20} weight="regular" className="shrink-0 text-brand-muted" />
           <input
             ref={inputRef}
             type="text"
@@ -89,7 +89,7 @@ export default function SearchPage() {
           {/* Empty state */}
           {results.products.length === 0 && (
             <div className="mt-12 flex flex-col items-center text-center">
-              <Search size={48} className="text-brand-border" />
+              <MagnifyingGlass size={48} weight="regular" className="text-brand-border" />
               <p className="mt-4 text-lg text-foreground">Ничего не найдено</p>
               <p className="mt-2 text-sm text-brand-muted">
                 Попробуйте изменить запрос или перейдите в каталог
@@ -124,7 +124,7 @@ export default function SearchPage() {
       {/* No query state */}
       {!query.trim() && (
         <div className="mt-12 flex flex-col items-center text-center">
-          <Search size={48} className="text-brand-border" />
+          <MagnifyingGlass size={48} weight="regular" className="text-brand-border" />
           <p className="mt-4 text-lg text-foreground">Начните поиск</p>
           <p className="mt-2 text-sm text-brand-muted">
             Введите название товара или категории

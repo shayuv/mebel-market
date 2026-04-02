@@ -1,9 +1,8 @@
+"use client";
+
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { CreditCard, Money, ShieldCheck, Percent, Phone } from "@phosphor-icons/react";
 
-export const metadata = {
-  title: "Оплата — МЕБЕЛЬ.маркет",
-};
 
 const paymentMethods = [
   {

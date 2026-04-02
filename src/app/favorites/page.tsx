@@ -3,7 +3,7 @@
 import { useFavorites } from "@/lib/context/FavoritesContext";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ProductCard } from "@/components/product/ProductCard";
-import { Heart } from "lucide-react";
+import { Heart } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function FavoritesPage() {
@@ -14,7 +14,7 @@ export default function FavoritesPage() {
       <div className="mx-auto max-w-[1280px] px-6 pb-20 md:pb-8">
         <Breadcrumbs items={[{ label: "Избранное" }]} />
         <div className="flex flex-col items-center py-20 text-center">
-          <Heart size={64} className="text-brand-border" />
+          <Heart size={64} weight="regular" className="text-brand-border" />
           <h1 className="mt-6 font-heading text-2xl font-bold text-foreground">Избранное пусто</h1>
           <p className="mt-2 text-brand-muted">Добавьте товары, нажав на сердечко</p>
           <Link

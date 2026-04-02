@@ -1,9 +1,8 @@
+"use client";
+
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { MapPin, Phone, Clock, EnvelopeSimple, ChatCircleDots } from "@phosphor-icons/react";
 
-export const metadata = {
-  title: "Контакты — МЕБЕЛЬ.маркет",
-};
 
 const stores = [
   {

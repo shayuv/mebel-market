@@ -3,7 +3,7 @@
 import { useCompare } from "@/lib/context/CompareContext";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { formatPrice } from "@/lib/formatters";
-import { ArrowLeftRight } from "lucide-react";
+import { ArrowsLeftRight } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -16,7 +16,7 @@ export default function ComparePage() {
       <div className="mx-auto max-w-[1280px] px-6 pb-20 md:pb-8">
         <Breadcrumbs items={[{ label: "Сравнение" }]} />
         <div className="flex flex-col items-center py-20 text-center">
-          <ArrowLeftRight size={64} className="text-brand-border" />
+          <ArrowsLeftRight size={64} weight="regular" className="text-brand-border" />
           <h1 className="mt-6 font-heading text-2xl font-bold text-foreground">Нет товаров для сравнения</h1>
           <p className="mt-2 text-brand-muted">Добавьте товары, нажав на иконку сравнения</p>
           <Link

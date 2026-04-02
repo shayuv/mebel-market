@@ -2,18 +2,6 @@
 
 import { useState, useMemo } from "react";
 import { useParams } from "next/navigation";
-import {
-  Armchair,
-  Door,
-  Bed,
-  CookingPot,
-  Chair,
-  Baby,
-  Bathtub,
-  CoatHanger,
-  PaintBrush,
-  Lightning,
-} from "@phosphor-icons/react";
 import { products, categoryPages } from "@/data/products";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SortBar } from "@/components/catalog/SortBar";
@@ -21,19 +9,6 @@ import { FilterSidebar } from "@/components/catalog/FilterSidebar";
 import { FilterDrawer } from "@/components/catalog/FilterDrawer";
 import { ProductCard } from "@/components/product/ProductCard";
 import type { FilterState, SortOption, GridView } from "@/types";
-
-const categoryIconMap: Record<string, React.ElementType> = {
-  armchair: Armchair,
-  door: Door,
-  bed: Bed,
-  "cooking-pot": CookingPot,
-  chair: Chair,
-  baby: Baby,
-  bathtub: Bathtub,
-  "coat-hanger": CoatHanger,
-  "paint-brush": PaintBrush,
-  lightning: Lightning,
-};
 
 const defaultFilters: FilterState = {
   priceMin: 0,
@@ -93,7 +68,6 @@ export default function CategoryPage() {
     );
   }
 
-  const CategoryIcon = categoryIconMap[category.icon];
   const visibleProducts = sorted.slice(0, showCount);
   const gridClass =
     gridView === "grid-2"
@@ -111,8 +85,7 @@ export default function CategoryPage() {
         ]}
       />
 
-      <h1 className="font-heading text-2xl font-bold text-foreground lg:text-3xl flex items-center gap-3">
-        {CategoryIcon && <CategoryIcon size={28} weight="duotone" color="#C4704B" />}
+      <h1 className="font-heading text-2xl font-bold text-foreground lg:text-3xl">
         {category.name}
       </h1>
       <p className="mt-1 text-sm text-brand-muted">{category.description}</p>

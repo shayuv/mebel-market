@@ -1,10 +1,9 @@
+"use client";
+
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Truck, Clock, MapPin, Phone } from "@phosphor-icons/react";
 import { Package } from "@phosphor-icons/react";
 
-export const metadata = {
-  title: "Доставка — МЕБЕЛЬ.маркет",
-};
 
 const deliveryMethods = [
   {

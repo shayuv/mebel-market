@@ -1,3 +1,5 @@
+"use client";
+
 import { Truck, ShieldCheck, CreditCard, Wrench } from "@phosphor-icons/react";
 import { advantages } from "@/data/categories";
 import type { Advantage } from "@/types";

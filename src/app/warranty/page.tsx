@@ -1,3 +1,5 @@
+"use client";
+
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import {
   ShieldCheck,
@@ -8,9 +10,6 @@ import {
   Phone,
 } from "@phosphor-icons/react";
 
-export const metadata = {
-  title: "Гарантии — МЕБЕЛЬ.маркет",
-};
 
 const warrantyItems = [
   {
