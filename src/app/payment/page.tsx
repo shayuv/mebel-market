@@ -1,5 +1,5 @@
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
-import { CreditCard, Banknote, Shield, Percent, Phone } from "lucide-react";
+import { CreditCard, Money, ShieldCheck, Percent, Phone } from "@phosphor-icons/react";
 
 export const metadata = {
   title: "Оплата — МЕБЕЛЬ.маркет",
@@ -14,7 +14,7 @@ const paymentMethods = [
     badges: ["Visa", "MC", "Mir", "СБП"],
   },
   {
-    icon: Banknote,
+    icon: Money,
     title: "При получении",
     description:
       "Оплата наличными или банковской картой курьеру при доставке. Для пунктов самовывоза — оплата на кассе.",
@@ -60,7 +60,6 @@ export default function PaymentPage() {
         безопасны.
       </p>
 
-      {/* Payment methods */}
       <div className="mt-10 space-y-6">
         {paymentMethods.map((method) => (
           <div
@@ -69,7 +68,7 @@ export default function PaymentPage() {
           >
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-terracotta-light">
-                <method.icon size={22} className="text-terracotta" />
+                <method.icon size={22} weight="regular" className="text-terracotta" />
               </div>
               <div className="flex-1">
                 <h3 className="text-lg font-bold text-foreground">
@@ -94,10 +93,9 @@ export default function PaymentPage() {
         ))}
       </div>
 
-      {/* Security guarantees */}
       <div className="mt-12">
         <div className="flex items-center gap-3">
-          <Shield size={22} className="text-terracotta" />
+          <ShieldCheck size={22} weight="regular" className="text-terracotta" />
           <h2 className="text-xl font-bold text-foreground">
             Безопасность платежей
           </h2>
@@ -117,7 +115,6 @@ export default function PaymentPage() {
         </div>
       </div>
 
-      {/* Installment details */}
       <div className="mt-12 rounded-2xl bg-terracotta-light p-8">
         <h2 className="font-heading text-xl font-bold text-terracotta">
           Рассрочка без переплат
@@ -143,7 +140,6 @@ export default function PaymentPage() {
         </div>
       </div>
 
-      {/* CTA */}
       <div className="mt-12 rounded-2xl bg-surface p-8 text-center">
         <h2 className="font-heading text-xl font-bold text-foreground">
           Нужна помощь с оплатой?
@@ -152,7 +148,7 @@ export default function PaymentPage() {
           Свяжитесь с нами — подберём оптимальный способ оплаты
         </p>
         <div className="mt-4 flex items-center justify-center gap-2 text-lg font-bold text-foreground">
-          <Phone size={18} className="text-terracotta" />
+          <Phone size={18} weight="fill" className="text-terracotta" />
           +7 (800) 555-35-35
         </div>
       </div>

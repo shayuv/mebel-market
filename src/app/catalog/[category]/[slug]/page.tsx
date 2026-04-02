@@ -3,7 +3,14 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Heart, Share2, ShoppingCart, Minus, Plus, CreditCard } from "lucide-react";
+import {
+  Heart,
+  ShareNetwork,
+  ShoppingCart,
+  Minus,
+  Plus,
+  CreditCard,
+} from "@phosphor-icons/react";
 import { products, reviews } from "@/data/products";
 import { formatPrice } from "@/lib/formatters";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -12,6 +19,9 @@ import { Badge } from "@/components/shared/Badge";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductTabs } from "@/components/product/ProductTabs";
 import { ProductCard } from "@/components/product/ProductCard";
+import { useCart } from "@/lib/context/CartContext";
+import { useFavorites } from "@/lib/context/FavoritesContext";
+import { useCompare } from "@/lib/context/CompareContext";
 
 function getBadgeVariant(badge: string | null) {
   if (!badge) return null;
@@ -36,6 +46,10 @@ export default function ProductDetailPage() {
   );
   const [quantity, setQuantity] = useState(1);
 
+  const { addItem } = useCart();
+  const { toggle: toggleFav, isFavorite } = useFavorites();
+  const { toggle: toggleCompare, isInCompare } = useCompare();
+
   if (!product) {
     return (
       <div className="mx-auto max-w-[1280px] px-6 py-20 text-center">
@@ -49,9 +63,9 @@ export default function ProductDetailPage() {
 
   const galleryImages = [
     product.img,
-    product.img.replace("w=500&h=500", "w=800&h=800"),
-    product.img,
-    product.img.replace("w=500&h=500", "w=1200&h=1200"),
+    product.img.replace("w=500&h=500", "w=800&h=600"),
+    product.img.replace("w=500&h=500", "w=600&h=800"),
+    product.img.replace("w=500&h=500", "w=1000&h=1000"),
   ];
 
   const economy = product.oldPrice ? product.oldPrice - product.price : 0;
@@ -73,12 +87,10 @@ export default function ProductDetailPage() {
       />
 
       <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
-        {/* Gallery */}
         <div className="lg:w-1/2">
           <ProductGallery images={galleryImages} title={product.name} />
         </div>
 
-        {/* Info */}
         <div className="flex-1">
           <div className="flex items-center gap-3">
             {badgeVariant && <Badge variant={badgeVariant}>{product.badge}</Badge>}
@@ -96,7 +108,6 @@ export default function ProductDetailPage() {
             </a>
           </div>
 
-          {/* Price */}
           <div className="mt-5 flex flex-wrap items-baseline gap-3">
             <span className="text-3xl font-bold text-foreground">{formatPrice(product.price)}</span>
             {product.oldPrice && (
@@ -109,7 +120,6 @@ export default function ProductDetailPage() {
             )}
           </div>
 
-          {/* Color swatches */}
           {product.colors && product.colors.length > 0 && (
             <div className="mt-5">
               <div className="mb-2 text-sm font-semibold text-foreground">
@@ -133,7 +143,6 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          {/* Sizes */}
           {product.sizes && product.sizes.length > 0 && (
             <div className="mt-5">
               <div className="mb-2 text-sm font-semibold text-foreground">Размер:</div>
@@ -155,7 +164,6 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          {/* Stock status */}
           <div className="mt-5 flex items-center gap-2">
             <span className={`h-2.5 w-2.5 rounded-full ${product.inStock ? "bg-success" : "bg-amber-400"}`} />
             <span className="text-sm font-medium text-foreground">
@@ -163,7 +171,6 @@ export default function ProductDetailPage() {
             </span>
           </div>
 
-          {/* Quantity + CTA */}
           <div className="mt-6 space-y-3">
             <div className="flex items-center gap-3">
               <div className="flex items-center rounded-xl border border-brand-border">
@@ -171,18 +178,21 @@ export default function ProductDetailPage() {
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   className="flex h-11 w-11 items-center justify-center text-foreground hover:text-terracotta"
                 >
-                  <Minus size={16} />
+                  <Minus size={16} weight="regular" />
                 </button>
                 <span className="w-10 text-center text-sm font-semibold">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
                   className="flex h-11 w-11 items-center justify-center text-foreground hover:text-terracotta"
                 >
-                  <Plus size={16} />
+                  <Plus size={16} weight="regular" />
                 </button>
               </div>
-              <button className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-terracotta px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(196,112,75,0.3)] transition-colors hover:bg-terracotta/90 sm:flex-none sm:px-7">
-                <ShoppingCart size={16} />
+              <button
+                onClick={() => addItem(product)}
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-terracotta px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(196,112,75,0.3)] transition-colors hover:bg-terracotta/90 sm:flex-none sm:px-7"
+              >
+                <ShoppingCart size={16} weight="regular" />
                 В корзину
               </button>
             </div>
@@ -190,16 +200,29 @@ export default function ProductDetailPage() {
               <button className="flex-1 rounded-xl border border-brand-border bg-white px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-terracotta hover:text-terracotta sm:flex-none">
                 Купить в 1 клик
               </button>
-              <button className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-border text-foreground hover:border-terracotta hover:text-terracotta">
-                <Heart size={18} />
+              <button
+                onClick={() => toggleFav(product)}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-colors ${
+                  isFavorite(product.id)
+                    ? "border-terracotta bg-terracotta-light text-terracotta"
+                    : "border-brand-border text-foreground hover:border-terracotta hover:text-terracotta"
+                }`}
+              >
+                <Heart size={18} weight={isFavorite(product.id) ? "fill" : "regular"} />
               </button>
-              <button className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-border text-foreground hover:border-terracotta hover:text-terracotta">
-                <Share2 size={18} />
+              <button
+                onClick={() => toggleCompare(product)}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-colors ${
+                  isInCompare(product.id)
+                    ? "border-terracotta bg-terracotta-light text-terracotta"
+                    : "border-brand-border text-foreground hover:border-terracotta hover:text-terracotta"
+                }`}
+              >
+                <ShareNetwork size={18} weight="regular" />
               </button>
             </div>
           </div>
 
-          {/* Quick specs */}
           {product.specs && (
             <div className="mt-6 rounded-xl bg-surface-light p-4">
               <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
@@ -215,9 +238,8 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          {/* Installment */}
           <div className="mt-4 flex items-center gap-3 rounded-xl border border-brand-border p-4">
-            <CreditCard size={20} className="text-terracotta" />
+            <CreditCard size={20} weight="regular" className="text-terracotta" />
             <span className="text-sm text-foreground">
               Рассрочка от <strong>{formatPrice(monthlyPrice)}/мес</strong> на 12 месяцев
             </span>
@@ -225,7 +247,6 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      {/* Tabs */}
       <div id="reviews" className="mt-10">
         <ProductTabs
           description={product.description ?? ""}
@@ -236,7 +257,6 @@ export default function ProductDetailPage() {
         />
       </div>
 
-      {/* Related products */}
       {relatedProducts.length > 0 && (
         <div className="mt-12">
           <h2 className="font-heading text-xl font-bold text-foreground">Похожие товары</h2>

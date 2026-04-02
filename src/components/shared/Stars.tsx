@@ -1,6 +1,6 @@
 "use client";
 
-import { Star } from "lucide-react";
+import { Star } from "@phosphor-icons/react";
 
 interface StarsProps {
   rating: number;
@@ -16,9 +16,8 @@ export function Stars({ rating, reviews }: StarsProps) {
         <Star
           key={i}
           size={13}
-          className={
-            i <= rounded ? "fill-gold text-gold" : "fill-gray-300 text-gray-300"
-          }
+          weight={i <= rounded ? "fill" : "regular"}
+          color={i <= rounded ? "#B8976A" : "#D1D5DB"}
         />
       ))}
       <span className="ml-0.5 text-xs text-brand-muted">{rating}</span>

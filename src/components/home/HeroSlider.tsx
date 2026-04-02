@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { heroSlides, sidePromos } from "@/data/categories";
 
 export function HeroSlider() {
@@ -23,7 +23,6 @@ export function HeroSlider() {
 
   return (
     <div className="flex gap-3.5 mt-5 max-xl:flex-col max-xl:h-auto">
-      {/* Main slider */}
       <div
         className="relative flex-1 overflow-hidden rounded-[20px] h-[400px] max-xl:h-[300px] max-sm:h-[240px]"
         onMouseEnter={() => setPaused(true)}
@@ -45,10 +44,8 @@ export function HeroSlider() {
               alt=""
               className="h-full w-full object-cover"
             />
-            {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-[rgba(45,41,38,0.78)] via-[rgba(45,41,38,0.3)] to-transparent" />
 
-            {/* Content */}
             <div className="absolute bottom-12 left-12 max-w-[420px] max-sm:left-6 max-sm:bottom-6">
               <div className="mb-3.5 inline-block rounded-lg bg-white/15 px-3.5 py-[5px] text-[13px] font-medium text-white/90 backdrop-blur-[8px]">
                 {slide.price}
@@ -69,21 +66,19 @@ export function HeroSlider() {
           </div>
         ))}
 
-        {/* Arrows */}
         <button
           onClick={() => go(-1)}
           className="absolute top-1/2 left-4 z-[5] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-none bg-white/85 shadow-[0_4px_16px_rgba(0,0,0,0.1)] backdrop-blur-[8px] max-sm:h-10 max-sm:w-10"
         >
-          <ChevronLeft size={20} className="text-foreground" />
+          <CaretLeft size={20} weight="regular" className="text-foreground" />
         </button>
         <button
           onClick={() => go(1)}
           className="absolute top-1/2 right-4 z-[5] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-none bg-white/85 shadow-[0_4px_16px_rgba(0,0,0,0.1)] backdrop-blur-[8px] max-sm:h-10 max-sm:w-10"
         >
-          <ChevronRight size={20} className="text-foreground" />
+          <CaretRight size={20} weight="regular" className="text-foreground" />
         </button>
 
-        {/* Dots + counter */}
         <div className="absolute bottom-5 left-12 z-[5] flex items-center gap-2.5 max-sm:left-6">
           <span className="text-[13px] font-medium tabular-nums text-white/70">
             {String(cur + 1).padStart(2, "0")} /{" "}
@@ -106,7 +101,6 @@ export function HeroSlider() {
           </div>
         </div>
 
-        {/* Progress bar */}
         <div className="absolute bottom-0 left-0 right-0 z-[5] h-[3px] bg-white/15">
           {!paused && (
             <div
@@ -119,7 +113,6 @@ export function HeroSlider() {
         </div>
       </div>
 
-      {/* Side promo cards */}
       <div className="flex w-[300px] shrink-0 flex-col gap-3.5 max-xl:w-full max-xl:flex-row">
         {sidePromos.map((promo, i) => (
           <SidePromoCard key={i} promo={promo} />
@@ -148,7 +141,6 @@ function SidePromoCard({
         display: "block",
       }}
     >
-      {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={promo.img}

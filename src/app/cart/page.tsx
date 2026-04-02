@@ -3,7 +3,7 @@
 import { useCart } from "@/lib/context/CartContext";
 import { formatPrice } from "@/lib/formatters";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
-import { Minus, Plus, Trash2, Heart, ShoppingBag } from "lucide-react";
+import { Minus, Plus, Trash, Heart, ShoppingBag } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function CartPage() {
@@ -14,7 +14,7 @@ export default function CartPage() {
       <div className="mx-auto max-w-[1280px] px-6 pb-20 md:pb-8">
         <Breadcrumbs items={[{ label: "Корзина" }]} />
         <div className="flex flex-col items-center py-20 text-center">
-          <ShoppingBag size={64} className="text-brand-border" />
+          <ShoppingBag size={64} weight="regular" className="text-brand-border" />
           <h1 className="mt-6 font-heading text-2xl font-bold text-foreground">Ваша корзина пуста</h1>
           <p className="mt-2 text-brand-muted">Добавьте товары, чтобы оформить заказ</p>
           <Link
@@ -36,7 +36,6 @@ export default function CartPage() {
       </h1>
 
       <div className="mt-6 flex flex-col gap-8 lg:flex-row">
-        {/* Items list */}
         <div className="flex-1">
           <div className="flex flex-col gap-4">
             {items.map((item) => (
@@ -72,14 +71,14 @@ export default function CartPage() {
                           onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                           className="flex h-8 w-8 items-center justify-center text-foreground hover:text-terracotta"
                         >
-                          <Minus size={14} />
+                          <Minus size={14} weight="regular" />
                         </button>
                         <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                           className="flex h-8 w-8 items-center justify-center text-foreground hover:text-terracotta"
                         >
-                          <Plus size={14} />
+                          <Plus size={14} weight="regular" />
                         </button>
                       </div>
                       <span className="text-sm font-bold text-foreground">
@@ -93,14 +92,14 @@ export default function CartPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <button className="text-brand-muted hover:text-terracotta" title="В избранное">
-                        <Heart size={16} />
+                        <Heart size={16} weight="regular" />
                       </button>
                       <button
                         onClick={() => removeItem(item.product.id)}
                         className="text-brand-muted hover:text-red-500"
                         title="Удалить"
                       >
-                        <Trash2 size={16} />
+                        <Trash size={16} weight="regular" />
                       </button>
                     </div>
                   </div>
@@ -116,7 +115,6 @@ export default function CartPage() {
           </button>
         </div>
 
-        {/* Summary sidebar */}
         <div className="lg:w-[340px] shrink-0">
           <div className="sticky top-28 rounded-2xl border border-brand-border bg-white p-6">
             <h2 className="text-lg font-bold text-foreground">Итого</h2>
@@ -145,7 +143,6 @@ export default function CartPage() {
               </div>
             </div>
 
-            {/* Promo code */}
             <div className="mt-4 flex gap-2">
               <input
                 placeholder="Промокод"

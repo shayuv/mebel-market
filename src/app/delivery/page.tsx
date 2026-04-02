@@ -1,5 +1,6 @@
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
-import { Truck, Clock, PackageCheck, MapPin, Phone } from "lucide-react";
+import { Truck, Clock, MapPin, Phone } from "@phosphor-icons/react";
+import { Package } from "@phosphor-icons/react";
 
 export const metadata = {
   title: "Доставка — МЕБЕЛЬ.маркет",
@@ -15,7 +16,7 @@ const deliveryMethods = [
       "Подъём на этаж, сборка мебели и установка — по тарифу. Курьер позвонит за час до прибытия.",
   },
   {
-    icon: PackageCheck,
+    icon: Package,
     title: "Пункты самовывоза",
     price: "Бесплатно",
     terms: "Срок хранения — 7 дней",
@@ -64,7 +65,6 @@ export default function DeliveryPage() {
         способ получения заказа.
       </p>
 
-      {/* Delivery methods */}
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {deliveryMethods.map((method) => (
           <div
@@ -72,7 +72,7 @@ export default function DeliveryPage() {
             className="rounded-2xl border border-brand-border bg-white p-6 transition-shadow hover:shadow-md"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-terracotta-light">
-              <method.icon size={22} className="text-terracotta" />
+              <method.icon size={22} weight="regular" className="text-terracotta" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-foreground">
               {method.title}
@@ -94,10 +94,9 @@ export default function DeliveryPage() {
         ))}
       </div>
 
-      {/* Delivery schedule */}
       <div className="mt-12 rounded-2xl border border-brand-border bg-white p-6">
         <div className="flex items-center gap-3">
-          <Clock size={20} className="text-terracotta" />
+          <Clock size={20} weight="regular" className="text-terracotta" />
           <h2 className="text-lg font-bold text-foreground">
             График доставки
           </h2>
@@ -125,7 +124,6 @@ export default function DeliveryPage() {
         </p>
       </div>
 
-      {/* FAQ */}
       <div className="mt-12">
         <h2 className="text-xl font-bold text-foreground">
           Часто задаваемые вопросы
@@ -145,7 +143,6 @@ export default function DeliveryPage() {
         </div>
       </div>
 
-      {/* CTA */}
       <div className="mt-12 rounded-2xl bg-surface p-8 text-center">
         <h2 className="font-heading text-xl font-bold text-foreground">
           Остались вопросы?
@@ -154,7 +151,7 @@ export default function DeliveryPage() {
           Позвоните нам — поможем выбрать удобный способ доставки
         </p>
         <div className="mt-4 flex items-center justify-center gap-2 text-lg font-bold text-foreground">
-          <Phone size={18} className="text-terracotta" />
+          <Phone size={18} weight="fill" className="text-terracotta" />
           +7 (800) 555-35-35
         </div>
       </div>

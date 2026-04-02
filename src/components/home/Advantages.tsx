@@ -1,10 +1,10 @@
-import { Truck, Shield, CreditCard, Wrench } from "lucide-react";
+import { Truck, ShieldCheck, CreditCard, Wrench } from "@phosphor-icons/react";
 import { advantages } from "@/data/categories";
 import type { Advantage } from "@/types";
 
 const iconMap: Record<string, React.ElementType> = {
   truck: Truck,
-  shield: Shield,
+  shield: ShieldCheck,
   "credit-card": CreditCard,
   wrench: Wrench,
 };
@@ -26,9 +26,9 @@ function AdvantageCard({ item }: { item: Advantage }) {
     <div className="rounded-2xl border border-brand-border bg-white px-5 py-6 text-center">
       <div className="mb-2.5 flex justify-center">
         <Icon
-          size={28}
-          className="text-terracotta"
-          strokeWidth={1.5}
+          size={32}
+          weight="duotone"
+          color="#C4704B"
         />
       </div>
       <div className="mb-1 text-[15px] font-bold text-foreground">

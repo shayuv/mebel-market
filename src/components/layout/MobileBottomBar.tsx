@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Grid3X3, ShoppingBag, Heart, User } from "lucide-react";
+import { House, SquaresFour, ShoppingBag, Heart, User } from "@phosphor-icons/react";
 
 const navItems = [
-  { icon: Home, label: "Главная", href: "/" },
-  { icon: Grid3X3, label: "Каталог", href: "/catalog" },
+  { icon: House, label: "Главная", href: "/" },
+  { icon: SquaresFour, label: "Каталог", href: "/catalog" },
   { icon: ShoppingBag, label: "Корзина", href: "/cart" },
   { icon: Heart, label: "Избранное", href: "/favorites" },
   { icon: User, label: "Профиль", href: "#" },
@@ -33,7 +33,10 @@ export function MobileBottomBar() {
                   : "text-brand-muted"
               }`}
             >
-              <item.icon size={22} strokeWidth={isActive ? 2.2 : 1.8} />
+              <item.icon
+                size={22}
+                weight={isActive ? "fill" : "regular"}
+              />
               <span className={`text-[10px] ${isActive ? "font-semibold" : ""}`}>
                 {item.label}
               </span>

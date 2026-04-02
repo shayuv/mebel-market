@@ -1,5 +1,5 @@
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
-import { MapPin, Phone, Clock, Mail, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Clock, EnvelopeSimple, ChatCircleDots } from "@phosphor-icons/react";
 
 export const metadata = {
   title: "Контакты — МЕБЕЛЬ.маркет",
@@ -40,13 +40,13 @@ const contactChannels = [
     description: "Бесплатно по России, ежедневно 9:00–22:00",
   },
   {
-    icon: Mail,
+    icon: EnvelopeSimple,
     title: "Email",
     value: "info@mebel-market.ru",
     description: "Ответим в течение 24 часов",
   },
   {
-    icon: MessageCircle,
+    icon: ChatCircleDots,
     title: "Онлайн-чат",
     value: "Чат на сайте",
     description: "Среднее время ответа — 3 минуты",
@@ -66,7 +66,6 @@ export default function ContactsPage() {
         магазинов.
       </p>
 
-      {/* Contact channels */}
       <div className="mt-10 grid gap-6 sm:grid-cols-3">
         {contactChannels.map((ch) => (
           <div
@@ -74,7 +73,7 @@ export default function ContactsPage() {
             className="rounded-2xl border border-brand-border bg-white p-6 text-center"
           >
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-terracotta-light">
-              <ch.icon size={24} className="text-terracotta" />
+              <ch.icon size={24} weight="regular" className="text-terracotta" />
             </div>
             <h3 className="mt-4 font-semibold text-foreground">
               {ch.title}
@@ -87,7 +86,6 @@ export default function ContactsPage() {
         ))}
       </div>
 
-      {/* Stores */}
       <div className="mt-12">
         <h2 className="text-xl font-bold text-foreground">Наши магазины</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -99,15 +97,15 @@ export default function ContactsPage() {
               <h3 className="font-semibold text-foreground">{store.name}</h3>
               <div className="mt-3 space-y-2 text-sm">
                 <div className="flex items-start gap-2 text-brand-muted">
-                  <MapPin size={16} className="mt-0.5 shrink-0 text-terracotta" />
+                  <MapPin size={16} weight="regular" className="mt-0.5 shrink-0 text-terracotta" />
                   <span>{store.address}</span>
                 </div>
                 <div className="flex items-center gap-2 text-brand-muted">
-                  <Phone size={16} className="shrink-0 text-terracotta" />
+                  <Phone size={16} weight="regular" className="shrink-0 text-terracotta" />
                   <span>{store.phone}</span>
                 </div>
                 <div className="flex items-center gap-2 text-brand-muted">
-                  <Clock size={16} className="shrink-0 text-terracotta" />
+                  <Clock size={16} weight="regular" className="shrink-0 text-terracotta" />
                   <span>{store.hours}</span>
                 </div>
               </div>
@@ -116,19 +114,15 @@ export default function ContactsPage() {
         </div>
       </div>
 
-      {/* Map placeholder */}
-      <div className="mt-12 overflow-hidden rounded-2xl border border-brand-border bg-surface">
-        <div className="flex h-[320px] items-center justify-center">
-          <div className="text-center">
-            <MapPin size={48} className="mx-auto text-brand-border" />
-            <p className="mt-3 text-sm text-brand-muted">
-              Карта магазинов (интеграция Яндекс.Карт)
-            </p>
-          </div>
-        </div>
+      <div className="mt-12 overflow-hidden rounded-2xl border border-brand-border">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=37.5%2C55.7%2C37.7%2C55.8&amp;layer=mapnik"
+          className="h-[320px] w-full border-0"
+          loading="lazy"
+          title="Карта магазинов"
+        />
       </div>
 
-      {/* General info */}
       <div className="mt-12 rounded-2xl bg-surface p-8">
         <h2 className="text-lg font-bold text-foreground">
           Реквизиты компании

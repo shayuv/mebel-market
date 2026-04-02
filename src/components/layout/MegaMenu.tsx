@@ -2,9 +2,40 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronRight, X } from "lucide-react";
+import { CaretRight, X } from "@phosphor-icons/react";
+import {
+  Armchair,
+  Door,
+  Bed,
+  CookingPot,
+  Chair,
+  Baby,
+  Bathtub,
+  CoatHanger,
+  PaintBrush,
+  Lightning,
+} from "@phosphor-icons/react";
 import { menuData } from "@/data/categories";
 import type { MenuCategory } from "@/types";
+
+const iconMap: Record<string, React.ElementType> = {
+  armchair: Armchair,
+  door: Door,
+  bed: Bed,
+  "cooking-pot": CookingPot,
+  chair: Chair,
+  baby: Baby,
+  bathtub: Bathtub,
+  "coat-hanger": CoatHanger,
+  "paint-brush": PaintBrush,
+  lightning: Lightning,
+};
+
+function CategoryIcon({ iconKey }: { iconKey: string }) {
+  const Icon = iconMap[iconKey];
+  if (!Icon) return <span className="w-7 text-center text-xl">📦</span>;
+  return <Icon size={22} weight="duotone" color="#C4704B" />;
+}
 
 interface MegaMenuProps {
   open: boolean;
@@ -28,17 +59,14 @@ export function MegaMenu({
 
   return (
     <>
-      {/* Overlay */}
       <div
         className="fixed inset-0 z-[90] bg-black/30"
         onClick={onClose}
       />
 
-      {/* Desktop menu panel */}
       <div className="absolute left-0 right-0 top-full z-[91] hidden overflow-hidden rounded-b-[20px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] animate-[menuSlide_0.25s_ease] md:flex">
         <style>{`@keyframes menuSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
-        {/* Left sidebar */}
         <div className="w-[280px] shrink-0 border-r border-brand-border bg-surface-light py-3">
           {menuData.map((cat, i) => (
             <Link
@@ -52,17 +80,19 @@ export function MegaMenu({
                   : "border-r-transparent font-normal text-brand-muted"
               }`}
             >
-              <span className="w-7 text-center text-xl">{cat.icon}</span>
+              <span className="flex w-7 justify-center">
+                <CategoryIcon iconKey={cat.icon} />
+              </span>
               <span className="text-sm">{cat.name}</span>
               <span className="ml-auto text-xs text-brand-muted">›</span>
             </Link>
           ))}
         </div>
 
-        {/* Right content */}
         <div className="flex-1 px-9 py-7">
-          <div className="font-heading mb-1 text-xl font-bold text-foreground">
-            {active.icon} {active.name}
+          <div className="font-heading mb-1 flex items-center gap-2 text-xl font-bold text-foreground">
+            <CategoryIcon iconKey={active.icon} />
+            {active.name}
           </div>
           <Link
             href={`/catalog/${active.slug}`}
@@ -84,7 +114,6 @@ export function MegaMenu({
             ))}
           </div>
 
-          {/* Promo inside mega menu */}
           <div className="mt-6 flex items-center justify-between rounded-[14px] bg-gradient-to-br from-terracotta-light to-[#FDE8D8] px-[22px] py-[18px]">
             <div>
               <div className="text-sm font-bold text-terracotta">
@@ -105,9 +134,7 @@ export function MegaMenu({
         </div>
       </div>
 
-      {/* Mobile fullscreen menu */}
       <div className="fixed inset-0 z-[91] overflow-y-auto bg-white md:hidden">
-        {/* Mobile header */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-brand-border bg-white px-4 py-3">
           <h2 className="text-lg font-bold text-foreground">
             {mobileActive ? (
@@ -115,7 +142,7 @@ export function MegaMenu({
                 onClick={() => setMobileSubIdx(null)}
                 className="flex items-center gap-2 text-foreground"
               >
-                <ChevronRight size={18} className="rotate-180" />
+                <CaretRight size={18} weight="regular" className="rotate-180" />
                 {mobileActive.name}
               </button>
             ) : (
@@ -126,11 +153,10 @@ export function MegaMenu({
             onClick={() => { onClose(); setMobileSubIdx(null); }}
             className="flex h-10 w-10 items-center justify-center rounded-xl text-foreground"
           >
-            <X size={22} />
+            <X size={22} weight="regular" />
           </button>
         </div>
 
-        {/* Mobile categories list */}
         {!mobileActive ? (
           <div className="py-2">
             {menuData.map((cat, i) => (
@@ -139,15 +165,16 @@ export function MegaMenu({
                 onClick={() => setMobileSubIdx(i)}
                 className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors active:bg-surface"
               >
-                <span className="w-8 text-center text-xl">{cat.icon}</span>
+                <span className="flex w-8 justify-center">
+                  <CategoryIcon iconKey={cat.icon} />
+                </span>
                 <span className="flex-1 text-[15px] font-medium text-foreground">{cat.name}</span>
-                <ChevronRight size={18} className="text-brand-muted" />
+                <CaretRight size={18} weight="regular" className="text-brand-muted" />
               </button>
             ))}
           </div>
         ) : (
           <div className="py-2">
-            {/* "View all" link */}
             <Link
               href={`/catalog/${mobileActive.slug}`}
               onClick={() => { onClose(); setMobileSubIdx(null); }}
@@ -155,7 +182,6 @@ export function MegaMenu({
             >
               Смотреть все {mobileActive.name.toLowerCase()}
             </Link>
-            {/* Subcategories */}
             {mobileActive.subs.map((sub, j) => (
               <Link
                 key={j}

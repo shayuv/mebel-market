@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useCart } from "@/lib/context/CartContext";
 import { formatPrice } from "@/lib/formatters";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
-import { Check, CreditCard, Truck, User } from "lucide-react";
+import { Check, CreditCard, Truck, User } from "@phosphor-icons/react";
 
 const steps = [
   { key: "contacts", label: "Контакты", icon: User },
@@ -46,7 +46,6 @@ export default function CheckoutPage() {
       <Breadcrumbs items={[{ label: "Корзина", href: "/cart" }, { label: "Оформление заказа" }]} />
       <h1 className="font-heading text-2xl font-bold text-foreground">Оформление заказа</h1>
 
-      {/* Progress bar */}
       <div className="mt-6 flex items-center gap-0">
         {steps.map((step, i) => (
           <div key={step.key} className="flex flex-1 items-center">
@@ -59,7 +58,7 @@ export default function CheckoutPage() {
                     : "bg-surface text-brand-muted"
               }`}
             >
-              {i < currentStep ? <Check size={18} /> : i + 1}
+              {i < currentStep ? <Check size={18} weight="bold" /> : i + 1}
             </div>
             <span className={`ml-2 hidden text-sm font-medium sm:inline ${
               i <= currentStep ? "text-foreground" : "text-brand-muted"
@@ -74,7 +73,6 @@ export default function CheckoutPage() {
       </div>
 
       <div className="mt-8">
-        {/* Step 1: Contacts */}
         {currentStep === 0 && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-foreground">Контактные данные</h2>
@@ -107,7 +105,6 @@ export default function CheckoutPage() {
           </div>
         )}
 
-        {/* Step 2: Delivery */}
         {currentStep === 1 && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-foreground">Способ доставки</h2>
@@ -172,7 +169,6 @@ export default function CheckoutPage() {
           </div>
         )}
 
-        {/* Step 3: Payment */}
         {currentStep === 2 && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-foreground">Способ оплаты</h2>
@@ -213,12 +209,10 @@ export default function CheckoutPage() {
           </div>
         )}
 
-        {/* Step 4: Confirmation */}
         {currentStep === 3 && (
           <div className="space-y-6">
             <h2 className="text-lg font-bold text-foreground">Подтверждение заказа</h2>
 
-            {/* Order summary */}
             <div className="rounded-2xl border border-brand-border bg-white p-5">
               <h3 className="text-sm font-bold text-foreground">Ваш заказ ({totalCount} шт.)</h3>
               <div className="mt-3 space-y-3">
@@ -244,7 +238,6 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Info summary */}
             <div className="rounded-2xl border border-brand-border bg-white p-5 space-y-2 text-sm">
               <div><span className="text-brand-muted">Имя:</span> <span className="text-foreground font-medium">{form.name || "—"}</span></div>
               <div><span className="text-brand-muted">Телефон:</span> <span className="text-foreground font-medium">{form.phone || "—"}</span></div>

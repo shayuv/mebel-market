@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Footer() {
   const columns = [
     {
@@ -17,19 +19,14 @@ export function Footer() {
       items: [
         { label: "Доставка", href: "/delivery" },
         { label: "Оплата", href: "/payment" },
-        { label: "Рассрочка", href: "#" },
         { label: "Гарантии", href: "/warranty" },
-        { label: "Сборка", href: "#" },
         { label: "Возврат", href: "/warranty" },
       ],
     },
     {
-      title: "О компании",
+      title: "Контакты",
       items: [
-        { label: "О нас", href: "#" },
         { label: "Магазины", href: "/contacts" },
-        { label: "Отзывы", href: "#" },
-        { label: "Вакансии", href: "#" },
         { label: "Контакты", href: "/contacts" },
       ],
     },
@@ -38,7 +35,6 @@ export function Footer() {
   return (
     <footer className="border-t border-brand-border pt-11 pb-7">
       <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-8 px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:gap-10">
-        {/* Brand column */}
         <div className="col-span-2 md:col-span-1">
           <div className="font-heading mb-3.5 text-[22px] font-extrabold text-foreground">
             МЕБЕЛЬ<span className="text-terracotta">.маркет</span>
@@ -59,26 +55,24 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Link columns */}
         {columns.map((col) => (
           <div key={col.title}>
             <div className="mb-3.5 text-sm font-bold text-foreground">
               {col.title}
             </div>
             {col.items.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className="block py-1 text-[13px] text-brand-muted hover:text-terracotta"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
         ))}
       </div>
 
-      {/* Bottom bar */}
       <div className="mx-auto mt-9 flex flex-col items-center gap-4 border-t border-brand-border px-6 pt-5 text-xs text-brand-muted md:flex-row md:justify-between">
         <span>© 2026 МЕБЕЛЬ.маркет</span>
         <div className="flex gap-3">

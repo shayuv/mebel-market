@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, SlidersHorizontal, RotateCcw } from "lucide-react";
+import { X, SlidersHorizontal, ArrowCounterClockwise } from "@phosphor-icons/react";
 import type { FilterState } from "@/types";
 import { brands, materials } from "@/data/categories";
 
@@ -75,10 +75,9 @@ export function FilterSidebar({
 
   return (
     <aside className={className}>
-      {/* Header */}
       <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal size={18} className="text-foreground" />
+          <SlidersHorizontal size={18} weight="regular" className="text-foreground" />
           <span className="font-semibold text-foreground">Фильтры</span>
           {activeCount > 0 && (
             <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-terracotta px-1.5 text-[11px] font-bold text-white">
@@ -91,13 +90,12 @@ export function FilterSidebar({
             onClick={onReset}
             className="flex items-center gap-1 text-xs text-brand-muted hover:text-terracotta"
           >
-            <RotateCcw size={12} />
+            <ArrowCounterClockwise size={12} weight="regular" />
             Сбросить
           </button>
         )}
       </div>
 
-      {/* Price */}
       <FilterSection title="Цена">
         <div className="flex items-center gap-2">
           <input
@@ -120,7 +118,6 @@ export function FilterSidebar({
         </div>
       </FilterSection>
 
-      {/* Brand */}
       <FilterSection title="Бренд">
         <div className="flex flex-col gap-1.5">
           {brands.map((brand) => (
@@ -140,7 +137,6 @@ export function FilterSidebar({
         </div>
       </FilterSection>
 
-      {/* Material */}
       <FilterSection title="Материал">
         <div className="flex flex-col gap-1.5">
           {materials.map((mat) => (
@@ -160,7 +156,6 @@ export function FilterSidebar({
         </div>
       </FilterSection>
 
-      {/* Color */}
       <FilterSection title="Цвет">
         <div className="flex flex-wrap gap-2">
           {colorOptions.map((color) => (
@@ -179,7 +174,6 @@ export function FilterSidebar({
         </div>
       </FilterSection>
 
-      {/* Toggles */}
       <FilterSection title="">
         <div className="flex flex-col gap-3">
           <ToggleRow
@@ -247,7 +241,6 @@ function ToggleRow({
   );
 }
 
-/* Active filter tags */
 export function ActiveFilterTags({
   filters,
   onRemove,
@@ -287,7 +280,7 @@ export function ActiveFilterTags({
           className="flex items-center gap-1 rounded-full border border-brand-border bg-white px-3 py-1 text-xs font-medium text-foreground transition-colors hover:border-terracotta hover:text-terracotta"
         >
           {tag.label}
-          <X size={12} />
+          <X size={12} weight="regular" />
         </button>
       ))}
     </div>

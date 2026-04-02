@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, Truck, CreditCard, ArrowCounterClockwise } from "@phosphor-icons/react";
 import type { Review } from "@/types";
 
 interface ProductTabsProps {
@@ -30,7 +30,6 @@ export function ProductTabs({
 
   return (
     <div className="mt-8">
-      {/* Tab buttons */}
       <div className="flex gap-0 border-b border-brand-border overflow-x-auto">
         {tabs.map((tab) => (
           <button
@@ -47,7 +46,6 @@ export function ProductTabs({
         ))}
       </div>
 
-      {/* Tab content */}
       <div className="py-6">
         {activeTab === "description" && (
           <div className="max-w-3xl text-sm leading-relaxed text-foreground/80">
@@ -76,7 +74,6 @@ export function ProductTabs({
 
         {activeTab === "reviews" && (
           <div className="max-w-3xl">
-            {/* Summary */}
             <div className="mb-6 flex items-center gap-4 rounded-xl bg-surface-light p-4">
               <div className="text-center">
                 <div className="text-3xl font-bold text-foreground">
@@ -87,11 +84,8 @@ export function ProductTabs({
                     <Star
                       key={i}
                       size={14}
-                      className={
-                        i <= Math.round(productRating)
-                          ? "fill-gold text-gold"
-                          : "text-gray-300"
-                      }
+                      weight={i <= Math.round(productRating) ? "fill" : "regular"}
+                      color={i <= Math.round(productRating) ? "#B8976A" : "#D1D5DB"}
                     />
                   ))}
                 </div>
@@ -104,7 +98,6 @@ export function ProductTabs({
               </button>
             </div>
 
-            {/* Review list */}
             <div className="flex flex-col gap-5">
               {reviews.map((review) => (
                 <div
@@ -130,11 +123,8 @@ export function ProductTabs({
                         <Star
                           key={i}
                           size={13}
-                          className={
-                            i <= review.rating
-                              ? "fill-gold text-gold"
-                              : "text-gray-300"
-                          }
+                          weight={i <= review.rating ? "fill" : "regular"}
+                          color={i <= review.rating ? "#B8976A" : "#D1D5DB"}
                         />
                       ))}
                     </div>
@@ -188,8 +178,9 @@ export function ProductTabs({
         {activeTab === "delivery" && (
           <div className="max-w-3xl space-y-4 text-sm leading-relaxed text-foreground/80">
             <div>
-              <h4 className="mb-1 font-semibold text-foreground">
-                🚚 Доставка
+              <h4 className="mb-1 flex items-center gap-2 font-semibold text-foreground">
+                <Truck size={18} weight="regular" className="text-terracotta" />
+                Доставка
               </h4>
               <p>
                 Бесплатная доставка при заказе от 15 000 ₽. Доставка по Москве
@@ -197,8 +188,9 @@ export function ProductTabs({
               </p>
             </div>
             <div>
-              <h4 className="mb-1 font-semibold text-foreground">
-                💳 Оплата
+              <h4 className="mb-1 flex items-center gap-2 font-semibold text-foreground">
+                <CreditCard size={18} weight="regular" className="text-terracotta" />
+                Оплата
               </h4>
               <p>
                 Онлайн картой (Visa, Mastercard, Mir), СБП, наличными при
@@ -206,8 +198,9 @@ export function ProductTabs({
               </p>
             </div>
             <div>
-              <h4 className="mb-1 font-semibold text-foreground">
-                🔄 Возврат
+              <h4 className="mb-1 flex items-center gap-2 font-semibold text-foreground">
+                <ArrowCounterClockwise size={18} weight="regular" className="text-terracotta" />
+                Возврат
               </h4>
               <p>
                 Возврат в течение 14 дней. Мебель надлежащего качества — при

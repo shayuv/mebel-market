@@ -1,7 +1,8 @@
 "use client";
 
-import { Grid2X2, Grid3X3, LayoutGrid, ArrowUpDown } from "lucide-react";
+import { SquaresFour, Funnel } from "@phosphor-icons/react";
 import type { SortOption, GridView } from "@/types";
+import { pluralize } from "@/lib/formatters";
 
 interface SortBarProps {
   total: number;
@@ -19,10 +20,10 @@ const sortOptions: { value: SortOption; label: string }[] = [
   { value: "rating", label: "По рейтингу" },
 ];
 
-const gridIcons: { value: GridView; icon: React.ElementType }[] = [
-  { value: "grid-2", icon: Grid2X2 },
-  { value: "grid-3", icon: Grid3X3 },
-  { value: "grid-4", icon: LayoutGrid },
+const gridOptions: { value: GridView }[] = [
+  { value: "grid-2" },
+  { value: "grid-3" },
+  { value: "grid-4" },
 ];
 
 export function SortBar({
@@ -35,13 +36,13 @@ export function SortBar({
   return (
     <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
       <span className="text-sm text-brand-muted">
-        Найдено <strong className="text-foreground">{total}</strong> товаров
+        Найдено <strong className="text-foreground">{total}</strong>{" "}
+        {pluralize(total, ["товар", "товара", "товаров"])}
       </span>
 
       <div className="flex items-center gap-3">
-        {/* Sort */}
         <div className="flex items-center gap-1.5">
-          <ArrowUpDown size={15} className="text-brand-muted" />
+          <Funnel size={15} weight="regular" className="text-brand-muted" />
           <select
             value={sort}
             onChange={(e) => onSortChange(e.target.value as SortOption)}
@@ -55,9 +56,8 @@ export function SortBar({
           </select>
         </div>
 
-        {/* Grid toggle — desktop only */}
         <div className="hidden items-center gap-1 rounded-lg border border-brand-border p-0.5 lg:flex">
-          {gridIcons.map(({ value, icon: Icon }) => (
+          {gridOptions.map(({ value }) => (
             <button
               key={value}
               onClick={() => onGridChange(value)}
@@ -67,7 +67,7 @@ export function SortBar({
                   : "text-brand-muted hover:text-foreground"
               }`}
             >
-              <Icon size={15} />
+              <SquaresFour size={15} weight="regular" />
             </button>
           ))}
         </div>

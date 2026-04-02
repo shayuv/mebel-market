@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, ArrowLeftRight, ShoppingCart } from "lucide-react";
+import { Heart, ArrowsLeftRight, ShoppingCart } from "@phosphor-icons/react";
 import { Stars } from "@/components/shared/Stars";
 import { Badge } from "@/components/shared/Badge";
 import { formatPrice } from "@/lib/formatters";
@@ -44,7 +44,6 @@ export function ProductCard({ product }: ProductCardProps) {
           : "0 1px 4px rgba(0,0,0,0.04)",
       }}
     >
-      {/* Image */}
       <Link
         href={`/catalog/${product.catSlug}/${product.slug}`}
         className="relative block aspect-square overflow-hidden bg-surface-light"
@@ -60,7 +59,6 @@ export function ProductCard({ product }: ProductCardProps) {
             <Badge variant={badgeVariant}>{product.badge}</Badge>
           </div>
         )}
-        {/* Hover action icons */}
         <div
           className="absolute right-2.5 top-2.5 flex flex-col gap-1.5 transition-opacity duration-300"
           style={{ opacity: hovered ? 1 : 0 }}
@@ -77,7 +75,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 : "bg-white/90 text-foreground"
             }`}
           >
-            <Heart size={16} fill={isFavorite(product.id) ? "currentColor" : "none"} />
+            <Heart size={16} weight={isFavorite(product.id) ? "fill" : "regular"} />
           </button>
           <button
             onClick={(e) => {
@@ -90,12 +88,11 @@ export function ProductCard({ product }: ProductCardProps) {
                 : "bg-white/90 text-foreground"
             }`}
           >
-            <ArrowLeftRight size={16} />
+            <ArrowsLeftRight size={16} weight="regular" />
           </button>
         </div>
       </Link>
 
-      {/* Info */}
       <div className="px-3.5 pb-3.5 pt-3">
         <div className="mb-0.5 text-[11px] uppercase tracking-wide text-brand-muted">
           {product.cat}
@@ -125,7 +122,7 @@ export function ProductCard({ product }: ProductCardProps) {
             color: hovered ? "#FFFFFF" : "#2D2926",
           }}
         >
-          <ShoppingCart size={14} />
+          <ShoppingCart size={14} weight="regular" />
           В корзину
         </button>
       </div>

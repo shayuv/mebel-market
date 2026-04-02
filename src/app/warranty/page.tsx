@@ -1,12 +1,12 @@
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import {
-  Shield,
-  RotateCcw,
+  ShieldCheck,
+  ArrowCounterClockwise,
   Wrench,
-  Award,
+  Medal,
   FileText,
   Phone,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 
 export const metadata = {
   title: "Гарантии — МЕБЕЛЬ.маркет",
@@ -14,13 +14,13 @@ export const metadata = {
 
 const warrantyItems = [
   {
-    icon: Shield,
+    icon: ShieldCheck,
     title: "Гарантия качества",
     description:
       "Вся мебель сертифицирована и соответствует ГОСТ. Гарантийный срок — от 12 до 36 месяцев в зависимости от категории товара. В течение гарантийного срока мы бесплатно устраним производственные дефекты.",
   },
   {
-    icon: RotateCcw,
+    icon: ArrowCounterClockwise,
     title: "Возврат и обмен",
     description:
       "14 дней на возврат товара надлежащего качества. Если товар не подошёл по размеру, цвету или комплектации — оформим возврат или обмен. Для товаров с дефектами — возврат в течение всего гарантийного срока.",
@@ -32,7 +32,7 @@ const warrantyItems = [
       "Профессиональная сборка мебели нашими мастерами. Гарантия на сборочные работы — 12 месяцев. Если в процессе эксплуатации выявится дефект сборки — исправим бесплатно.",
   },
   {
-    icon: Award,
+    icon: Medal,
     title: "Сертификаты",
     description:
       "Вся продукция прошла обязательную сертификацию. Сертификаты соответствия и санитарно-эпидемиологические заключения доступны по запросу. Мы работаем только с проверенными производителями.",
@@ -73,7 +73,6 @@ export default function WarrantyPage() {
         решим проблему быстро и без лишних вопросов.
       </p>
 
-      {/* Warranty items */}
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {warrantyItems.map((item) => (
           <div
@@ -81,7 +80,7 @@ export default function WarrantyPage() {
             className="rounded-2xl border border-brand-border bg-white p-6"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-terracotta-light">
-              <item.icon size={22} className="text-terracotta" />
+              <item.icon size={22} weight="regular" className="text-terracotta" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-foreground">
               {item.title}
@@ -93,7 +92,6 @@ export default function WarrantyPage() {
         ))}
       </div>
 
-      {/* How it works */}
       <div className="mt-12">
         <h2 className="text-xl font-bold text-foreground">
           Как оформить гарантиный случай
@@ -118,10 +116,9 @@ export default function WarrantyPage() {
         </div>
       </div>
 
-      {/* Important info */}
       <div className="mt-12 rounded-2xl bg-surface p-8">
         <div className="flex items-center gap-3">
-          <FileText size={20} className="text-terracotta" />
+          <FileText size={20} weight="regular" className="text-terracotta" />
           <h2 className="text-lg font-bold text-foreground">
             Важно знать
           </h2>
@@ -146,7 +143,6 @@ export default function WarrantyPage() {
         </ul>
       </div>
 
-      {/* CTA */}
       <div className="mt-12 rounded-2xl border-2 border-terracotta/20 bg-terracotta-light p-8 text-center">
         <h2 className="font-heading text-xl font-bold text-foreground">
           Возникла проблема с товаром?
@@ -155,7 +151,7 @@ export default function WarrantyPage() {
           Позвоните — оперативно решим вопрос
         </p>
         <div className="mt-4 flex items-center justify-center gap-2 text-lg font-bold text-foreground">
-          <Phone size={18} className="text-terracotta" />
+          <Phone size={18} weight="fill" className="text-terracotta" />
           +7 (800) 555-35-35
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 
 interface ProductGalleryProps {
   images: string[];
@@ -13,7 +13,6 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
 
   return (
     <div className="flex flex-col-reverse gap-3 lg:flex-row">
-      {/* Vertical thumbnails — desktop */}
       <div className="hidden lg:flex lg:flex-col lg:gap-2">
         {images.map((img, i) => (
           <button
@@ -35,7 +34,6 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
         ))}
       </div>
 
-      {/* Main image */}
       <div className="relative aspect-square flex-1 overflow-hidden rounded-2xl bg-surface-light">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -44,21 +42,19 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
           className="h-full w-full object-cover"
         />
 
-        {/* Mobile arrows */}
         <button
           onClick={() => setCurrent((c) => (c - 1 + images.length) % images.length)}
           className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 shadow backdrop-blur-sm lg:hidden"
         >
-          <ChevronLeft size={18} />
+          <CaretLeft size={18} weight="regular" />
         </button>
         <button
           onClick={() => setCurrent((c) => (c + 1) % images.length)}
           className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 shadow backdrop-blur-sm lg:hidden"
         >
-          <ChevronRight size={18} />
+          <CaretRight size={18} weight="regular" />
         </button>
 
-        {/* Mobile dots */}
         <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5 lg:hidden">
           {images.map((_, i) => (
             <button
