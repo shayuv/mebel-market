@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { heroSlides, sidePromos } from "@/data/categories";
@@ -9,6 +9,9 @@ export function HeroSlider() {
   const [cur, setCur] = useState(0);
   const [paused, setPaused] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [dragX, setDragX] = useState(0);
+  const touchStartX = useRef(0);
+  const touchCurrentX = useRef(0);
   const total = heroSlides.length;
 
   useEffect(() => {
@@ -28,10 +31,30 @@ export function HeroSlider() {
 
   const go = (dir: number) => setCur((c) => (c + dir + total) % total);
 
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchCurrentX.current = e.touches[0].clientX;
+    setPaused(true);
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchCurrentX.current = e.touches[0].clientX;
+    setDragX(touchCurrentX.current - touchStartX.current);
+  };
+  const onTouchEnd = () => {
+    const delta = touchCurrentX.current - touchStartX.current;
+    if (Math.abs(delta) > 50) go(delta < 0 ? 1 : -1);
+    setDragX(0);
+    setPaused(false);
+  };
+
   return (
     <div className="flex gap-3.5 mt-5 max-xl:flex-col max-xl:h-auto">
       <div
-        className="relative flex-1 max-xl:flex-none overflow-hidden rounded-[20px] h-[400px] max-xl:h-[300px] max-sm:h-[300px]"
+        className="relative flex-1 max-xl:flex-none overflow-hidden rounded-[20px] h-[400px] max-xl:h-[300px] max-sm:h-[300px] select-none"
+        style={{ touchAction: "pan-y" }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -47,8 +70,8 @@ export function HeroSlider() {
                 className="h-full w-full object-cover"
                 style={{
                   opacity: isActive ? 1 : 0,
-                  transform: isActive ? `translateY(${scrollY * 0.12}px) scale(1.1)` : "scale(1.03)",
-                  transition: "opacity 0.7s ease, transform 0.7s ease",
+                  transform: isActive ? `translateY(${scrollY * 0.12}px) scale(1.1) translateX(${dragX * 0.3}px)` : "scale(1.03)",
+                  transition: dragX ? "none" : "opacity 0.7s ease, transform 0.7s ease",
                   pointerEvents: isActive ? "auto" : "none",
                 }}
               />
