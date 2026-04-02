@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { heroSlides, sidePromos } from "@/data/categories";
@@ -8,6 +8,7 @@ import { heroSlides, sidePromos } from "@/data/categories";
 export function HeroSlider() {
   const [cur, setCur] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const total = heroSlides.length;
 
   useEffect(() => {
@@ -18,6 +19,12 @@ export function HeroSlider() {
     );
     return () => clearInterval(timer);
   }, [paused, total]);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const go = (dir: number) => setCur((c) => (c + dir + total) % total);
 
@@ -43,6 +50,9 @@ export function HeroSlider() {
               src={slide.img}
               alt=""
               className="h-full w-full object-cover"
+              style={{
+                transform: i === cur ? `translateY(${scrollY * 0.12}px) scale(1.1)` : undefined,
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-[rgba(45,41,38,0.78)] via-[rgba(45,41,38,0.3)] to-transparent" />
 
@@ -113,7 +123,7 @@ export function HeroSlider() {
         </div>
       </div>
 
-      <div className="flex w-[300px] shrink-0 flex-col gap-3.5 max-xl:w-full max-xl:flex-row">
+      <div className="hidden w-[300px] shrink-0 flex-col gap-3.5 xl:flex">
         {sidePromos.map((promo, i) => (
           <SidePromoCard key={i} promo={promo} />
         ))}
@@ -134,11 +144,12 @@ function SidePromoCard({
       href="/catalog"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative overflow-hidden rounded-[20px] p-[22px] transition-transform duration-300 max-xl:flex-1"
+      className="relative overflow-hidden rounded-[20px] p-[22px] transition-transform duration-300"
       style={{
         background: promo.color,
         transform: hovered ? "scale(0.98)" : "scale(1)",
         display: "block",
+        flex: 1,
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

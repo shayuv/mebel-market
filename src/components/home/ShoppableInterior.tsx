@@ -44,9 +44,10 @@ export function ShoppableInterior() {
           >
             {/* Pin dot */}
             <div
-              className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-terracotta bg-white/90 backdrop-blur-[8px] shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-transform duration-300"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-terracotta bg-white/90 backdrop-blur-[8px] shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-transform duration-300"
               style={{ transform: activePin === i ? "scale(1.2)" : "scale(1)" }}
             >
+              <div className="absolute inset-0 animate-ping rounded-full border-2 border-terracotta opacity-30" />
               <div className="h-2 w-2 rounded-full bg-terracotta" />
             </div>
 

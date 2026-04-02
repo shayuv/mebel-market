@@ -124,6 +124,11 @@
   --sidebar-ring: #C4704B;
 }
 
+@keyframes pageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

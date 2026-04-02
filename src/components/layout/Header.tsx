@@ -12,6 +12,7 @@ import {
   MapPin,
   Phone,
   X,
+  List,
 } from "@phosphor-icons/react";
 import { MegaMenu } from "@/components/layout/MegaMenu";
 import { useCart } from "@/lib/context/CartContext";
@@ -59,6 +60,7 @@ export function Header() {
       }`}
     >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+        {/* Topline — desktop only */}
         <div className="hidden items-center justify-between border-b border-brand-border py-1.5 text-[13px] text-brand-muted md:flex">
           <div className="flex gap-5">
             <span className="flex items-center gap-1 text-brand-muted">
@@ -84,14 +86,17 @@ export function Header() {
           </div>
         </div>
 
+        {/* Main row */}
         <div className="relative flex items-center gap-2 py-2.5 sm:gap-4 sm:py-3">
-          <Link href="/" className="font-heading shrink-0 text-[20px] font-extrabold tracking-tight text-foreground sm:text-[26px]">
+          {/* Logo */}
+          <Link href="/" className="font-heading shrink-0 text-[18px] font-extrabold tracking-tight text-foreground sm:text-[26px]">
             МЕБЕЛЬ<span className="text-terracotta">.маркет</span>
           </Link>
 
+          {/* Catalog burger — desktop */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-white transition-colors duration-200 sm:px-5 sm:py-2.5"
+            className="hidden shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-white transition-colors duration-200 sm:flex sm:px-5 sm:py-2.5"
             style={{
               background: menuOpen ? "#C4704B" : "#2D2926",
             }}
@@ -121,6 +126,7 @@ export function Header() {
             <span className="hidden sm:inline">Каталог</span>
           </button>
 
+          {/* Desktop search bar */}
           <form
             onSubmit={handleSearch}
             className="hidden flex-1 items-center gap-2 rounded-xl bg-surface px-4 py-0 md:flex"
@@ -140,13 +146,7 @@ export function Header() {
             </button>
           </form>
 
-          <button
-            onClick={() => setSearchOpen(true)}
-            className="ml-auto flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-foreground md:hidden"
-          >
-            <MagnifyingGlass size={20} weight="regular" />
-          </button>
-
+          {/* Desktop icon row */}
           <div className="hidden items-center gap-1 lg:flex">
             {[
               { icon: Heart, label: "Избранное", count: favCount, href: "/favorites" },
@@ -174,6 +174,38 @@ export function Header() {
             <span className="mt-0.5 text-[10px] text-brand-muted">Войти</span>
           </div>
 
+          {/* Mobile icon row */}
+          <div className="ml-auto flex items-center gap-1 lg:hidden">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="flex h-9 w-9 items-center justify-center rounded-xl text-foreground"
+            >
+              <MagnifyingGlass size={20} weight="regular" />
+            </button>
+            <Link href="/favorites" className="relative flex h-9 w-9 items-center justify-center rounded-xl text-foreground">
+              <Heart size={20} weight="regular" />
+              {favCount > 0 && (
+                <span className="absolute right-0 top-0 flex min-w-[16px] items-center justify-center rounded-full bg-terracotta px-1 text-[10px] font-bold text-white">
+                  {favCount}
+                </span>
+              )}
+            </Link>
+            <Link href="/cart" className="relative flex h-9 w-9 items-center justify-center rounded-xl text-foreground">
+              <ShoppingBag size={20} weight="regular" />
+              {cartCount > 0 && (
+                <span className="absolute right-0 top-0 flex min-w-[16px] items-center justify-center rounded-full bg-terracotta px-1 text-[10px] font-bold text-white">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex h-9 w-9 items-center justify-center rounded-xl text-foreground"
+            >
+              <List size={22} weight="regular" />
+            </button>
+          </div>
+
           <MegaMenu
             open={menuOpen}
             onClose={() => setMenuOpen(false)}
@@ -183,6 +215,7 @@ export function Header() {
         </div>
       </div>
 
+      {/* Mobile search overlay */}
       {searchOpen && (
         <div className="fixed inset-0 z-[200] bg-background md:hidden">
           <div className="flex items-center gap-3 border-b border-brand-border px-4 py-3">

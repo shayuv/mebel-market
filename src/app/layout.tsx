@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-background font-sans">
         <Providers>
           <Header />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 animate-[pageIn_0.3s_ease]">{children}</div>
           <Footer />
           <MobileBottomBar />
         </Providers>
